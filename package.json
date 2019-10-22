@@ -1,0 +1,10 @@
+{
+  "name": "zzan_back",
+  "version": "1.0.0",
+  "description": "ZZAN backend",
+  "main": "index.js",
+  "repository": "https://higherlove@bitbucket.org/alspsm/zzan_back.git",
+  "author": "jisoo <jsoo744@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
