@@ -16,7 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  post: (where?: PostWhereInput) => Promise<boolean>;
+  moim: (where?: MoimWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -39,25 +39,25 @@ export interface Prisma {
    * Queries
    */
 
-  post: (where: PostWhereUniqueInput) => PostNullablePromise;
-  posts: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  moim: (where: MoimWhereUniqueInput) => MoimNullablePromise;
+  moims: (args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Post>;
-  postsConnection: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  }) => FragmentableArray<Moim>;
+  moimsConnection: (args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => PostConnectionPromise;
+  }) => MoimConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -83,22 +83,22 @@ export interface Prisma {
    * Mutations
    */
 
-  createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (args: {
-    data: PostUpdateInput;
-    where: PostWhereUniqueInput;
-  }) => PostPromise;
-  updateManyPosts: (args: {
-    data: PostUpdateManyMutationInput;
-    where?: PostWhereInput;
+  createMoim: (data: MoimCreateInput) => MoimPromise;
+  updateMoim: (args: {
+    data: MoimUpdateInput;
+    where: MoimWhereUniqueInput;
+  }) => MoimPromise;
+  updateManyMoims: (args: {
+    data: MoimUpdateManyMutationInput;
+    where?: MoimWhereInput;
   }) => BatchPayloadPromise;
-  upsertPost: (args: {
-    where: PostWhereUniqueInput;
-    create: PostCreateInput;
-    update: PostUpdateInput;
-  }) => PostPromise;
-  deletePost: (where: PostWhereUniqueInput) => PostPromise;
-  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
+  upsertMoim: (args: {
+    where: MoimWhereUniqueInput;
+    create: MoimCreateInput;
+    update: MoimUpdateInput;
+  }) => MoimPromise;
+  deleteMoim: (where: MoimWhereUniqueInput) => MoimPromise;
+  deleteManyMoims: (where?: MoimWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -124,9 +124,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  post: (
-    where?: PostSubscriptionWhereInput
-  ) => PostSubscriptionPayloadSubscription;
+  moim: (
+    where?: MoimSubscriptionWhereInput
+  ) => MoimSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -140,76 +140,99 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type PostOrderByInput =
+export type MoimOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "published_ASC"
-  | "published_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "content_ASC"
-  | "content_DESC";
+  | "place_ASC"
+  | "place_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "maxEntry_ASC"
+  | "maxEntry_DESC"
+  | "time_ASC"
+  | "time_DESC"
+  | "gender_ASC"
+  | "gender_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "email_ASC"
-  | "email_DESC"
   | "name_ASC"
-  | "name_DESC";
+  | "name_DESC"
+  | "gender_ASC"
+  | "gender_DESC"
+  | "certKey_ASC"
+  | "certKey_DESC"
+  | "joinedAt_ASC"
+  | "joinedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserUpdateOneRequiredWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  update?: Maybe<UserUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
+export interface MoimUpdateManyWithoutParticipantsInput {
+  create?: Maybe<
+    MoimCreateWithoutParticipantsInput[] | MoimCreateWithoutParticipantsInput
+  >;
+  delete?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  connect?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  set?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  disconnect?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  update?: Maybe<
+    | MoimUpdateWithWhereUniqueWithoutParticipantsInput[]
+    | MoimUpdateWithWhereUniqueWithoutParticipantsInput
+  >;
+  upsert?: Maybe<
+    | MoimUpsertWithWhereUniqueWithoutParticipantsInput[]
+    | MoimUpsertWithWhereUniqueWithoutParticipantsInput
+  >;
+  deleteMany?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
+  updateMany?: Maybe<
+    MoimUpdateManyWithWhereNestedInput[] | MoimUpdateManyWithWhereNestedInput
+  >;
 }
 
-export type PostWhereUniqueInput = AtLeastOne<{
+export type MoimWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
+export interface MoimCreateManyWithoutCreatorInput {
+  create?: Maybe<
+    MoimCreateWithoutCreatorInput[] | MoimCreateWithoutCreatorInput
+  >;
+  connect?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
 }
 
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  email: String;
+export interface UserUpdateWithoutJoinedMoimDataInput {
   name?: Maybe<String>;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+  gender?: Maybe<String>;
+  certKey?: Maybe<String>;
+  createdMoim?: Maybe<MoimUpdateManyWithoutCreatorInput>;
+  blacklist?: Maybe<UserUpdateManyInput>;
 }
 
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  update?: Maybe<
-    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    | PostUpdateWithWhereUniqueWithoutAuthorInput
-  >;
-  upsert?: Maybe<
-    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    | PostUpsertWithWhereUniqueWithoutAuthorInput
-  >;
-  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  updateMany?: Maybe<
-    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
-  >;
+export interface MoimCreateWithoutCreatorInput {
+  id?: Maybe<ID_Input>;
+  place: String;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time: DateTimeInput;
+  participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
+  gender?: Maybe<String>;
 }
 
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
+export interface MoimUpdateWithoutParticipantsDataInput {
+  place?: Maybe<String>;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  creator?: Maybe<UserUpdateOneRequiredWithoutCreatedMoimInput>;
+  gender?: Maybe<String>;
+}
+
+export interface UserCreateManyWithoutJoinedMoimInput {
+  create?: Maybe<
+    UserCreateWithoutJoinedMoimInput[] | UserCreateWithoutJoinedMoimInput
+  >;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
 }
 
 export interface UserWhereInput {
@@ -227,20 +250,6 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -255,233 +264,548 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  posts_every?: Maybe<PostWhereInput>;
-  posts_some?: Maybe<PostWhereInput>;
-  posts_none?: Maybe<PostWhereInput>;
+  gender?: Maybe<String>;
+  gender_not?: Maybe<String>;
+  gender_in?: Maybe<String[] | String>;
+  gender_not_in?: Maybe<String[] | String>;
+  gender_lt?: Maybe<String>;
+  gender_lte?: Maybe<String>;
+  gender_gt?: Maybe<String>;
+  gender_gte?: Maybe<String>;
+  gender_contains?: Maybe<String>;
+  gender_not_contains?: Maybe<String>;
+  gender_starts_with?: Maybe<String>;
+  gender_not_starts_with?: Maybe<String>;
+  gender_ends_with?: Maybe<String>;
+  gender_not_ends_with?: Maybe<String>;
+  certKey?: Maybe<String>;
+  certKey_not?: Maybe<String>;
+  certKey_in?: Maybe<String[] | String>;
+  certKey_not_in?: Maybe<String[] | String>;
+  certKey_lt?: Maybe<String>;
+  certKey_lte?: Maybe<String>;
+  certKey_gt?: Maybe<String>;
+  certKey_gte?: Maybe<String>;
+  certKey_contains?: Maybe<String>;
+  certKey_not_contains?: Maybe<String>;
+  certKey_starts_with?: Maybe<String>;
+  certKey_not_starts_with?: Maybe<String>;
+  certKey_ends_with?: Maybe<String>;
+  certKey_not_ends_with?: Maybe<String>;
+  joinedAt?: Maybe<DateTimeInput>;
+  joinedAt_not?: Maybe<DateTimeInput>;
+  joinedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  joinedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  joinedAt_lt?: Maybe<DateTimeInput>;
+  joinedAt_lte?: Maybe<DateTimeInput>;
+  joinedAt_gt?: Maybe<DateTimeInput>;
+  joinedAt_gte?: Maybe<DateTimeInput>;
+  createdMoim_every?: Maybe<MoimWhereInput>;
+  createdMoim_some?: Maybe<MoimWhereInput>;
+  createdMoim_none?: Maybe<MoimWhereInput>;
+  joinedMoim_every?: Maybe<MoimWhereInput>;
+  joinedMoim_some?: Maybe<MoimWhereInput>;
+  joinedMoim_none?: Maybe<MoimWhereInput>;
+  blacklist_every?: Maybe<UserWhereInput>;
+  blacklist_some?: Maybe<UserWhereInput>;
+  blacklist_none?: Maybe<UserWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface PostSubscriptionWhereInput {
+export interface UserCreateWithoutJoinedMoimInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  gender: String;
+  certKey: String;
+  createdMoim?: Maybe<MoimCreateManyWithoutCreatorInput>;
+  blacklist?: Maybe<UserCreateManyInput>;
+}
+
+export interface MoimSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<PostWhereInput>;
-  AND?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  OR?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  NOT?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+  node?: Maybe<MoimWhereInput>;
+  AND?: Maybe<MoimSubscriptionWhereInput[] | MoimSubscriptionWhereInput>;
+  OR?: Maybe<MoimSubscriptionWhereInput[] | MoimSubscriptionWhereInput>;
+  NOT?: Maybe<MoimSubscriptionWhereInput[] | MoimSubscriptionWhereInput>;
 }
 
-export interface PostCreateInput {
-  id?: Maybe<ID_Input>;
-  published?: Maybe<Boolean>;
-  title: String;
-  content?: Maybe<String>;
-  author: UserCreateOneWithoutPostsInput;
-}
-
-export interface PostUpdateManyDataInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-}
-
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface PostScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-}
-
-export interface UserCreateWithoutPostsInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  name?: Maybe<String>;
-}
-
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  update: PostUpdateWithoutAuthorDataInput;
-  create: PostCreateWithoutAuthorInput;
-}
-
-export interface PostUpdateInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-}
-
-export interface PostWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  author?: Maybe<UserWhereInput>;
-  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
-  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
-  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+export interface MoimUpdateInput {
+  place?: Maybe<String>;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  creator?: Maybe<UserUpdateOneRequiredWithoutCreatedMoimInput>;
+  participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
+  gender?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
-  email?: Maybe<String>;
   name?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+  gender?: Maybe<String>;
+  certKey?: Maybe<String>;
+  createdMoim?: Maybe<MoimUpdateManyWithoutCreatorInput>;
+  joinedMoim?: Maybe<MoimUpdateManyWithoutParticipantsInput>;
+  blacklist?: Maybe<UserUpdateManyInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutCreatedMoimInput {
+  create?: Maybe<UserCreateWithoutCreatedMoimInput>;
+  update?: Maybe<UserUpdateWithoutCreatedMoimDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCreatedMoimInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpsertWithoutCreatedMoimInput {
+  update: UserUpdateWithoutCreatedMoimDataInput;
+  create: UserCreateWithoutCreatedMoimInput;
+}
+
+export interface UserUpdateWithoutCreatedMoimDataInput {
+  name?: Maybe<String>;
+  gender?: Maybe<String>;
+  certKey?: Maybe<String>;
+  joinedMoim?: Maybe<MoimUpdateManyWithoutParticipantsInput>;
+  blacklist?: Maybe<UserUpdateManyInput>;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  certKey?: Maybe<String>;
+}>;
+
+export interface UserScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  gender?: Maybe<String>;
+  gender_not?: Maybe<String>;
+  gender_in?: Maybe<String[] | String>;
+  gender_not_in?: Maybe<String[] | String>;
+  gender_lt?: Maybe<String>;
+  gender_lte?: Maybe<String>;
+  gender_gt?: Maybe<String>;
+  gender_gte?: Maybe<String>;
+  gender_contains?: Maybe<String>;
+  gender_not_contains?: Maybe<String>;
+  gender_starts_with?: Maybe<String>;
+  gender_not_starts_with?: Maybe<String>;
+  gender_ends_with?: Maybe<String>;
+  gender_not_ends_with?: Maybe<String>;
+  certKey?: Maybe<String>;
+  certKey_not?: Maybe<String>;
+  certKey_in?: Maybe<String[] | String>;
+  certKey_not_in?: Maybe<String[] | String>;
+  certKey_lt?: Maybe<String>;
+  certKey_lte?: Maybe<String>;
+  certKey_gt?: Maybe<String>;
+  certKey_gte?: Maybe<String>;
+  certKey_contains?: Maybe<String>;
+  certKey_not_contains?: Maybe<String>;
+  certKey_starts_with?: Maybe<String>;
+  certKey_not_starts_with?: Maybe<String>;
+  certKey_ends_with?: Maybe<String>;
+  certKey_not_ends_with?: Maybe<String>;
+  joinedAt?: Maybe<DateTimeInput>;
+  joinedAt_not?: Maybe<DateTimeInput>;
+  joinedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  joinedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  joinedAt_lt?: Maybe<DateTimeInput>;
+  joinedAt_lte?: Maybe<DateTimeInput>;
+  joinedAt_gt?: Maybe<DateTimeInput>;
+  joinedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  OR?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  NOT?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+}
+
+export interface UserUpdateManyDataInput {
+  name?: Maybe<String>;
+  gender?: Maybe<String>;
+  certKey?: Maybe<String>;
+}
+
+export interface MoimUpdateWithWhereUniqueWithoutParticipantsInput {
+  where: MoimWhereUniqueInput;
+  data: MoimUpdateWithoutParticipantsDataInput;
+}
+
+export interface UserCreateOneWithoutCreatedMoimInput {
+  create?: Maybe<UserCreateWithoutCreatedMoimInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpsertWithWhereUniqueWithoutJoinedMoimInput {
+  where: UserWhereUniqueInput;
+  update: UserUpdateWithoutJoinedMoimDataInput;
+  create: UserCreateWithoutJoinedMoimInput;
+}
+
+export interface MoimCreateManyWithoutParticipantsInput {
+  create?: Maybe<
+    MoimCreateWithoutParticipantsInput[] | MoimCreateWithoutParticipantsInput
+  >;
+  connect?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+}
+
+export interface MoimUpsertWithWhereUniqueWithoutParticipantsInput {
+  where: MoimWhereUniqueInput;
+  update: MoimUpdateWithoutParticipantsDataInput;
+  create: MoimCreateWithoutParticipantsInput;
+}
+
+export interface UserCreateManyInput {
+  create?: Maybe<UserCreateInput[] | UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+}
+
+export interface MoimScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  place?: Maybe<String>;
+  place_not?: Maybe<String>;
+  place_in?: Maybe<String[] | String>;
+  place_not_in?: Maybe<String[] | String>;
+  place_lt?: Maybe<String>;
+  place_lte?: Maybe<String>;
+  place_gt?: Maybe<String>;
+  place_gte?: Maybe<String>;
+  place_contains?: Maybe<String>;
+  place_not_contains?: Maybe<String>;
+  place_starts_with?: Maybe<String>;
+  place_not_starts_with?: Maybe<String>;
+  place_ends_with?: Maybe<String>;
+  place_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  maxEntry_not?: Maybe<Int>;
+  maxEntry_in?: Maybe<Int[] | Int>;
+  maxEntry_not_in?: Maybe<Int[] | Int>;
+  maxEntry_lt?: Maybe<Int>;
+  maxEntry_lte?: Maybe<Int>;
+  maxEntry_gt?: Maybe<Int>;
+  maxEntry_gte?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  time_not?: Maybe<DateTimeInput>;
+  time_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  time_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  time_lt?: Maybe<DateTimeInput>;
+  time_lte?: Maybe<DateTimeInput>;
+  time_gt?: Maybe<DateTimeInput>;
+  time_gte?: Maybe<DateTimeInput>;
+  gender?: Maybe<String>;
+  gender_not?: Maybe<String>;
+  gender_in?: Maybe<String[] | String>;
+  gender_not_in?: Maybe<String[] | String>;
+  gender_lt?: Maybe<String>;
+  gender_lte?: Maybe<String>;
+  gender_gt?: Maybe<String>;
+  gender_gte?: Maybe<String>;
+  gender_contains?: Maybe<String>;
+  gender_not_contains?: Maybe<String>;
+  gender_starts_with?: Maybe<String>;
+  gender_not_starts_with?: Maybe<String>;
+  gender_ends_with?: Maybe<String>;
+  gender_not_ends_with?: Maybe<String>;
+  AND?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
+  OR?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
+  NOT?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
+}
+
+export interface MoimWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  place?: Maybe<String>;
+  place_not?: Maybe<String>;
+  place_in?: Maybe<String[] | String>;
+  place_not_in?: Maybe<String[] | String>;
+  place_lt?: Maybe<String>;
+  place_lte?: Maybe<String>;
+  place_gt?: Maybe<String>;
+  place_gte?: Maybe<String>;
+  place_contains?: Maybe<String>;
+  place_not_contains?: Maybe<String>;
+  place_starts_with?: Maybe<String>;
+  place_not_starts_with?: Maybe<String>;
+  place_ends_with?: Maybe<String>;
+  place_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  maxEntry_not?: Maybe<Int>;
+  maxEntry_in?: Maybe<Int[] | Int>;
+  maxEntry_not_in?: Maybe<Int[] | Int>;
+  maxEntry_lt?: Maybe<Int>;
+  maxEntry_lte?: Maybe<Int>;
+  maxEntry_gt?: Maybe<Int>;
+  maxEntry_gte?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  time_not?: Maybe<DateTimeInput>;
+  time_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  time_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  time_lt?: Maybe<DateTimeInput>;
+  time_lte?: Maybe<DateTimeInput>;
+  time_gt?: Maybe<DateTimeInput>;
+  time_gte?: Maybe<DateTimeInput>;
+  creator?: Maybe<UserWhereInput>;
+  participants_every?: Maybe<UserWhereInput>;
+  participants_some?: Maybe<UserWhereInput>;
+  participants_none?: Maybe<UserWhereInput>;
+  gender?: Maybe<String>;
+  gender_not?: Maybe<String>;
+  gender_in?: Maybe<String[] | String>;
+  gender_not_in?: Maybe<String[] | String>;
+  gender_lt?: Maybe<String>;
+  gender_lte?: Maybe<String>;
+  gender_gt?: Maybe<String>;
+  gender_gte?: Maybe<String>;
+  gender_contains?: Maybe<String>;
+  gender_not_contains?: Maybe<String>;
+  gender_starts_with?: Maybe<String>;
+  gender_not_starts_with?: Maybe<String>;
+  gender_ends_with?: Maybe<String>;
+  gender_not_ends_with?: Maybe<String>;
+  AND?: Maybe<MoimWhereInput[] | MoimWhereInput>;
+  OR?: Maybe<MoimWhereInput[] | MoimWhereInput>;
+  NOT?: Maybe<MoimWhereInput[] | MoimWhereInput>;
+}
+
+export interface MoimUpdateManyWithWhereNestedInput {
+  where: MoimScalarWhereInput;
+  data: MoimUpdateManyDataInput;
 }
 
 export interface UserUpdateManyMutationInput {
-  email?: Maybe<String>;
   name?: Maybe<String>;
+  gender?: Maybe<String>;
+  certKey?: Maybe<String>;
 }
 
-export interface PostCreateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+export interface MoimUpdateManyDataInput {
+  place?: Maybe<String>;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  gender?: Maybe<String>;
 }
 
-export interface PostUpdateManyMutationInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
+export interface UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput;
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
 }
 
-export interface PostCreateWithoutAuthorInput {
+export interface UserUpdateManyInput {
+  create?: Maybe<UserCreateInput[] | UserCreateInput>;
+  update?: Maybe<
+    | UserUpdateWithWhereUniqueNestedInput[]
+    | UserUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | UserUpsertWithWhereUniqueNestedInput[]
+    | UserUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  set?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  disconnect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  deleteMany?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  updateMany?: Maybe<
+    UserUpdateManyWithWhereNestedInput[] | UserUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput;
+  data: UserUpdateManyDataInput;
+}
+
+export interface UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput;
+  data: UserUpdateDataInput;
+}
+
+export interface UserCreateWithoutCreatedMoimInput {
   id?: Maybe<ID_Input>;
-  published?: Maybe<Boolean>;
-  title: String;
-  content?: Maybe<String>;
+  name: String;
+  gender: String;
+  certKey: String;
+  joinedMoim?: Maybe<MoimCreateManyWithoutParticipantsInput>;
+  blacklist?: Maybe<UserCreateManyInput>;
 }
 
-export interface UserUpdateWithoutPostsDataInput {
-  email?: Maybe<String>;
+export interface UserUpdateDataInput {
   name?: Maybe<String>;
+  gender?: Maybe<String>;
+  certKey?: Maybe<String>;
+  createdMoim?: Maybe<MoimUpdateManyWithoutCreatorInput>;
+  joinedMoim?: Maybe<MoimUpdateManyWithoutParticipantsInput>;
+  blacklist?: Maybe<UserUpdateManyInput>;
 }
 
-export interface PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput;
-  data: PostUpdateManyDataInput;
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  gender: String;
+  certKey: String;
+  createdMoim?: Maybe<MoimCreateManyWithoutCreatorInput>;
+  joinedMoim?: Maybe<MoimCreateManyWithoutParticipantsInput>;
+  blacklist?: Maybe<UserCreateManyInput>;
+}
+
+export interface MoimUpdateManyWithoutCreatorInput {
+  create?: Maybe<
+    MoimCreateWithoutCreatorInput[] | MoimCreateWithoutCreatorInput
+  >;
+  delete?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  connect?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  set?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  disconnect?: Maybe<MoimWhereUniqueInput[] | MoimWhereUniqueInput>;
+  update?: Maybe<
+    | MoimUpdateWithWhereUniqueWithoutCreatorInput[]
+    | MoimUpdateWithWhereUniqueWithoutCreatorInput
+  >;
+  upsert?: Maybe<
+    | MoimUpsertWithWhereUniqueWithoutCreatorInput[]
+    | MoimUpsertWithWhereUniqueWithoutCreatorInput
+  >;
+  deleteMany?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
+  updateMany?: Maybe<
+    MoimUpdateManyWithWhereNestedInput[] | MoimUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface MoimUpdateManyMutationInput {
+  place?: Maybe<String>;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  gender?: Maybe<String>;
+}
+
+export interface UserUpdateWithWhereUniqueWithoutJoinedMoimInput {
+  where: UserWhereUniqueInput;
+  data: UserUpdateWithoutJoinedMoimDataInput;
+}
+
+export interface UserUpdateManyWithoutJoinedMoimInput {
+  create?: Maybe<
+    UserCreateWithoutJoinedMoimInput[] | UserCreateWithoutJoinedMoimInput
+  >;
+  delete?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  set?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  disconnect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+  update?: Maybe<
+    | UserUpdateWithWhereUniqueWithoutJoinedMoimInput[]
+    | UserUpdateWithWhereUniqueWithoutJoinedMoimInput
+  >;
+  upsert?: Maybe<
+    | UserUpsertWithWhereUniqueWithoutJoinedMoimInput[]
+    | UserUpsertWithWhereUniqueWithoutJoinedMoimInput
+  >;
+  deleteMany?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  updateMany?: Maybe<
+    UserUpdateManyWithWhereNestedInput[] | UserUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface MoimUpdateWithoutCreatorDataInput {
+  place?: Maybe<String>;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time?: Maybe<DateTimeInput>;
+  participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
+  gender?: Maybe<String>;
+}
+
+export interface MoimUpdateWithWhereUniqueWithoutCreatorInput {
+  where: MoimWhereUniqueInput;
+  data: MoimUpdateWithoutCreatorDataInput;
+}
+
+export interface MoimUpsertWithWhereUniqueWithoutCreatorInput {
+  where: MoimWhereUniqueInput;
+  update: MoimUpdateWithoutCreatorDataInput;
+  create: MoimCreateWithoutCreatorInput;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -495,16 +819,26 @@ export interface UserSubscriptionWhereInput {
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
 
-export interface PostUpdateWithoutAuthorDataInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
+export interface MoimCreateWithoutParticipantsInput {
+  id?: Maybe<ID_Input>;
+  place: String;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time: DateTimeInput;
+  creator: UserCreateOneWithoutCreatedMoimInput;
+  gender?: Maybe<String>;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  email?: Maybe<String>;
-}>;
+export interface MoimCreateInput {
+  id?: Maybe<ID_Input>;
+  place: String;
+  description?: Maybe<String>;
+  maxEntry?: Maybe<Int>;
+  time: DateTimeInput;
+  creator: UserCreateOneWithoutCreatedMoimInput;
+  participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
+  gender?: Maybe<String>;
+}
 
 export interface NodeNode {
   id: ID_Output;
@@ -512,131 +846,30 @@ export interface NodeNode {
 
 export interface UserPreviousValues {
   id: ID_Output;
-  email: String;
-  name?: String;
+  name: String;
+  gender: String;
+  certKey: String;
+  joinedAt: DateTimeOutput;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
   name: () => Promise<String>;
+  gender: () => Promise<String>;
+  certKey: () => Promise<String>;
+  joinedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PostPreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content?: String;
-}
-
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-}
-
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Post {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content?: String;
-}
-
-export interface PostPromise extends Promise<Post>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
-}
-
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
-  author: <T = UserSubscription>() => T;
-}
-
-export interface PostNullablePromise
-  extends Promise<Post | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
-}
-
-export interface AggregatePost {
-  count: Int;
-}
-
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface PostEdge {
-  node: Post;
-  cursor: String;
-}
-
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
-    Fragmentable {
-  node: <T = PostSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  gender: () => Promise<AsyncIterator<String>>;
+  certKey: () => Promise<AsyncIterator<String>>;
+  joinedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -664,50 +897,270 @@ export interface UserSubscriptionPayloadSubscription
   previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node: Post;
-  updatedFields: String[];
-  previousValues: PostPreviousValues;
+export interface Moim {
+  id: ID_Output;
+  place: String;
+  description?: String;
+  maxEntry: Int;
+  time: DateTimeOutput;
+  gender: String;
 }
 
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
+export interface MoimPromise extends Promise<Moim>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  place: () => Promise<String>;
+  description: () => Promise<String>;
+  maxEntry: () => Promise<Int>;
+  time: () => Promise<DateTimeOutput>;
+  creator: <T = UserPromise>() => T;
+  participants: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  gender: () => Promise<String>;
+}
+
+export interface MoimSubscription
+  extends Promise<AsyncIterator<Moim>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  place: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  maxEntry: () => Promise<AsyncIterator<Int>>;
+  time: () => Promise<AsyncIterator<DateTimeOutput>>;
+  creator: <T = UserSubscription>() => T;
+  participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  gender: () => Promise<AsyncIterator<String>>;
+}
+
+export interface MoimNullablePromise
+  extends Promise<Moim | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  place: () => Promise<String>;
+  description: () => Promise<String>;
+  maxEntry: () => Promise<Int>;
+  time: () => Promise<DateTimeOutput>;
+  creator: <T = UserPromise>() => T;
+  participants: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  gender: () => Promise<String>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface User {
+  id: ID_Output;
+  name: String;
+  gender: String;
+  certKey: String;
+  joinedAt: DateTimeOutput;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  gender: () => Promise<String>;
+  certKey: () => Promise<String>;
+  joinedAt: () => Promise<DateTimeOutput>;
+  createdMoim: <T = FragmentableArray<Moim>>(args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  joinedMoim: <T = FragmentableArray<Moim>>(args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  blacklist: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  gender: () => Promise<AsyncIterator<String>>;
+  certKey: () => Promise<AsyncIterator<String>>;
+  joinedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdMoim: <T = Promise<AsyncIterator<MoimSubscription>>>(args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  joinedMoim: <T = Promise<AsyncIterator<MoimSubscription>>>(args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  blacklist: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserNullablePromise
+  extends Promise<User | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  gender: () => Promise<String>;
+  certKey: () => Promise<String>;
+  joinedAt: () => Promise<DateTimeOutput>;
+  createdMoim: <T = FragmentableArray<Moim>>(args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  joinedMoim: <T = FragmentableArray<Moim>>(args?: {
+    where?: MoimWhereInput;
+    orderBy?: MoimOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  blacklist: <T = FragmentableArray<User>>(args?: {
+    where?: UserWhereInput;
+    orderBy?: UserOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface MoimSubscriptionPayload {
+  mutation: MutationType;
+  node: Moim;
+  updatedFields: String[];
+  previousValues: MoimPreviousValues;
+}
+
+export interface MoimSubscriptionPayloadPromise
+  extends Promise<MoimSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
+  node: <T = MoimPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
+  previousValues: <T = MoimPreviousValuesPromise>() => T;
 }
 
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
+export interface MoimSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<MoimSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
+  node: <T = MoimSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
+  previousValues: <T = MoimPreviousValuesSubscription>() => T;
 }
 
-export interface PostConnection {
+export interface MoimConnection {
   pageInfo: PageInfo;
-  edges: PostEdge[];
+  edges: MoimEdge[];
 }
 
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
+export interface MoimConnectionPromise
+  extends Promise<MoimConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
+  edges: <T = FragmentableArray<MoimEdge>>() => T;
+  aggregate: <T = AggregateMoimPromise>() => T;
 }
 
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
+export interface MoimConnectionSubscription
+  extends Promise<AsyncIterator<MoimConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<MoimEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateMoimSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -733,91 +1186,35 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface User {
+export interface MoimPreviousValues {
   id: ID_Output;
-  email: String;
-  name?: String;
+  place: String;
+  description?: String;
+  maxEntry: Int;
+  time: DateTimeOutput;
+  gender: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface MoimPreviousValuesPromise
+  extends Promise<MoimPreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  place: () => Promise<String>;
+  description: () => Promise<String>;
+  maxEntry: () => Promise<Int>;
+  time: () => Promise<DateTimeOutput>;
+  gender: () => Promise<String>;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface MoimPreviousValuesSubscription
+  extends Promise<AsyncIterator<MoimPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface UserNullablePromise
-  extends Promise<User | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  place: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  maxEntry: () => Promise<AsyncIterator<Int>>;
+  time: () => Promise<AsyncIterator<DateTimeOutput>>;
+  gender: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserConnection {
@@ -841,40 +1238,56 @@ export interface UserConnectionSubscription
   aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface UserEdge {
-  node: User;
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface MoimEdge {
+  node: Moim;
   cursor: String;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
+export interface MoimEdgePromise extends Promise<MoimEdge>, Fragmentable {
+  node: <T = MoimPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface MoimEdgeSubscription
+  extends Promise<AsyncIterator<MoimEdge>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = MoimSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface AggregateMoim {
+  count: Int;
+}
+
+export interface AggregateMoimPromise
+  extends Promise<AggregateMoim>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateMoimSubscription
+  extends Promise<AsyncIterator<AggregateMoim>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
 
 export type Long = string;
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
 
 /*
 DateTime scalar input type, allowing Date
@@ -887,9 +1300,25 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
+
+/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
+
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number;
+export type ID_Output = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /**
  * Model Metadata
@@ -901,7 +1330,7 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "Post",
+    name: "Moim",
     embedded: false
   }
 ];

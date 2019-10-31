@@ -1,60 +1,64 @@
 const resolvers = {
     Query: {
         feed: (parent, args, context) => {
-            return context.prisma.posts({ where: { published: true } })
+            return context.prisma.moims()
         },
-        filterPosts: (parent, { searchString }, context) => {
-            return context.prisma.posts({
-            where: {
-                OR: [
-                {
-                    title_contains: searchString,
-                },
-                {
-                    content_contains: searchString,
-                },
-                ],
-            },
-            })
-        },
-        post: (parent, { id }, context) => {
-            return context.prisma.post({ id })
-        },
+        // filterPosts: (parent, { searchString }, context) => {
+        //     return context.prisma.posts({
+        //     where: {
+        //         OR: [
+        //         {
+        //             title_contains: searchString,
+        //         },
+        //         {
+        //             content_contains: searchString,
+        //         },
+        //         ],
+        //     },
+        //     })
+        // },
+        // post: (parent, { id }, context) => {
+        //     return context.prisma.post({ id })
+        // },
     },
     Mutation: {
-        signupUser: (parent, { email, name }, context) => {
+        signupUser: (parent, { certKey, name, gender }, context) => {
             return context.prisma.createUser({
-            email,
+            certKey,
             name,
+            gender
             })
         },
-        createDraft: (parent, { title, content, authorEmail }, context) => {
-            return context.prisma.createPost({
-            title,
-            content,
-            author: { connect: { email: authorEmail } },
+        createMoim: (parent, { placeId, time, creatorId, maxEntry, description, gender }, context) => {
+            return context.prisma.createMoim({
+            place: placeId,
+            description,
+            maxEntry,
+            time,
+            creator: { connect: { id: creatorId } },
+            gender
             })
         },
-        publish: (parent, { id }, context) => {
-            return context.prisma.updatePost({
-            where: { id },
-            data: { published: true },
-            })
-        },
-        deletePost: (parent, { id }, context) => {
-            return context.prisma.deletePost({ id })
-        },
-        },
-        Post: {
-        author: ({ id }, args, context) => {
-            return context.prisma.post({ id }).author()
+        // publish: (parent, { id }, context) => {
+        //     return context.prisma.updateMoim({
+        //     where: { id },
+        //     data: { published: true },
+        //     })
+        // },
+        deleteMoim: (parent, { id }, context) => {
+            return context.prisma.deleteMoim({ id })
         },
         },
-        User: {
-        posts: ({ id }, args, context) => {
-            return context.prisma.user({ id }).posts()
-        },
-    },
+    // Post: {
+    //     author: ({ id }, args, context) => {
+    //         return context.prisma.post({ id }).author()
+    //     },
+    // },
+    // User: {
+    //     posts: ({ id }, args, context) => {
+    //         return context.prisma.user({ id }).posts()
+    //     },
+    // },
 }
 
 export default resolvers

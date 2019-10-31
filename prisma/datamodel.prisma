@@ -1,16 +1,21 @@
 type User {
   id: ID! @id
-  email: String! @unique
-  name: String
-  posts: [Post!]!
+  name: String!
+  gender: String!
+  certKey: String! @unique
+  joinedAt: DateTime! @createdAt
+  createdMoim: [Moim] @relation(name: "MoimCreator", onDelete: CASCADE)
+  joinedMoim: [Moim] @relation(name: "MoimJoined", onDelete: SET_NULL)
+  blacklist: [User]
 }
 
-type Post {
+type Moim {
   id: ID! @id
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  published: Boolean! @default(value: false)
-  title: String!
-  content: String
-  author: User!
+  place: String!
+  description: String
+  maxEntry: Int! @default(value: 6)
+  time: DateTime!
+  creator: User! @relation(name: "MoimCreator", onDelete: SET_NULL)
+  participants: [User!] @relation(name: "MoimJoined", onDelete: SET_NULL)
+  gender: String! @default(value: "A")
 }

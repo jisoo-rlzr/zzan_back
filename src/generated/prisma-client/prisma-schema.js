@@ -3,7 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregatePost {
+/* GraphQL */ `type AggregateMoim {
   count: Int!
 }
 
@@ -19,13 +19,377 @@ scalar DateTime
 
 scalar Long
 
+type Moim {
+  id: ID!
+  place: String!
+  description: String
+  maxEntry: Int!
+  time: DateTime!
+  creator: User!
+  participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  gender: String!
+}
+
+type MoimConnection {
+  pageInfo: PageInfo!
+  edges: [MoimEdge]!
+  aggregate: AggregateMoim!
+}
+
+input MoimCreateInput {
+  id: ID
+  place: String!
+  description: String
+  maxEntry: Int
+  time: DateTime!
+  creator: UserCreateOneWithoutCreatedMoimInput!
+  participants: UserCreateManyWithoutJoinedMoimInput
+  gender: String
+}
+
+input MoimCreateManyWithoutCreatorInput {
+  create: [MoimCreateWithoutCreatorInput!]
+  connect: [MoimWhereUniqueInput!]
+}
+
+input MoimCreateManyWithoutParticipantsInput {
+  create: [MoimCreateWithoutParticipantsInput!]
+  connect: [MoimWhereUniqueInput!]
+}
+
+input MoimCreateWithoutCreatorInput {
+  id: ID
+  place: String!
+  description: String
+  maxEntry: Int
+  time: DateTime!
+  participants: UserCreateManyWithoutJoinedMoimInput
+  gender: String
+}
+
+input MoimCreateWithoutParticipantsInput {
+  id: ID
+  place: String!
+  description: String
+  maxEntry: Int
+  time: DateTime!
+  creator: UserCreateOneWithoutCreatedMoimInput!
+  gender: String
+}
+
+type MoimEdge {
+  node: Moim!
+  cursor: String!
+}
+
+enum MoimOrderByInput {
+  id_ASC
+  id_DESC
+  place_ASC
+  place_DESC
+  description_ASC
+  description_DESC
+  maxEntry_ASC
+  maxEntry_DESC
+  time_ASC
+  time_DESC
+  gender_ASC
+  gender_DESC
+}
+
+type MoimPreviousValues {
+  id: ID!
+  place: String!
+  description: String
+  maxEntry: Int!
+  time: DateTime!
+  gender: String!
+}
+
+input MoimScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  place: String
+  place_not: String
+  place_in: [String!]
+  place_not_in: [String!]
+  place_lt: String
+  place_lte: String
+  place_gt: String
+  place_gte: String
+  place_contains: String
+  place_not_contains: String
+  place_starts_with: String
+  place_not_starts_with: String
+  place_ends_with: String
+  place_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  maxEntry: Int
+  maxEntry_not: Int
+  maxEntry_in: [Int!]
+  maxEntry_not_in: [Int!]
+  maxEntry_lt: Int
+  maxEntry_lte: Int
+  maxEntry_gt: Int
+  maxEntry_gte: Int
+  time: DateTime
+  time_not: DateTime
+  time_in: [DateTime!]
+  time_not_in: [DateTime!]
+  time_lt: DateTime
+  time_lte: DateTime
+  time_gt: DateTime
+  time_gte: DateTime
+  gender: String
+  gender_not: String
+  gender_in: [String!]
+  gender_not_in: [String!]
+  gender_lt: String
+  gender_lte: String
+  gender_gt: String
+  gender_gte: String
+  gender_contains: String
+  gender_not_contains: String
+  gender_starts_with: String
+  gender_not_starts_with: String
+  gender_ends_with: String
+  gender_not_ends_with: String
+  AND: [MoimScalarWhereInput!]
+  OR: [MoimScalarWhereInput!]
+  NOT: [MoimScalarWhereInput!]
+}
+
+type MoimSubscriptionPayload {
+  mutation: MutationType!
+  node: Moim
+  updatedFields: [String!]
+  previousValues: MoimPreviousValues
+}
+
+input MoimSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MoimWhereInput
+  AND: [MoimSubscriptionWhereInput!]
+  OR: [MoimSubscriptionWhereInput!]
+  NOT: [MoimSubscriptionWhereInput!]
+}
+
+input MoimUpdateInput {
+  place: String
+  description: String
+  maxEntry: Int
+  time: DateTime
+  creator: UserUpdateOneRequiredWithoutCreatedMoimInput
+  participants: UserUpdateManyWithoutJoinedMoimInput
+  gender: String
+}
+
+input MoimUpdateManyDataInput {
+  place: String
+  description: String
+  maxEntry: Int
+  time: DateTime
+  gender: String
+}
+
+input MoimUpdateManyMutationInput {
+  place: String
+  description: String
+  maxEntry: Int
+  time: DateTime
+  gender: String
+}
+
+input MoimUpdateManyWithoutCreatorInput {
+  create: [MoimCreateWithoutCreatorInput!]
+  delete: [MoimWhereUniqueInput!]
+  connect: [MoimWhereUniqueInput!]
+  set: [MoimWhereUniqueInput!]
+  disconnect: [MoimWhereUniqueInput!]
+  update: [MoimUpdateWithWhereUniqueWithoutCreatorInput!]
+  upsert: [MoimUpsertWithWhereUniqueWithoutCreatorInput!]
+  deleteMany: [MoimScalarWhereInput!]
+  updateMany: [MoimUpdateManyWithWhereNestedInput!]
+}
+
+input MoimUpdateManyWithoutParticipantsInput {
+  create: [MoimCreateWithoutParticipantsInput!]
+  delete: [MoimWhereUniqueInput!]
+  connect: [MoimWhereUniqueInput!]
+  set: [MoimWhereUniqueInput!]
+  disconnect: [MoimWhereUniqueInput!]
+  update: [MoimUpdateWithWhereUniqueWithoutParticipantsInput!]
+  upsert: [MoimUpsertWithWhereUniqueWithoutParticipantsInput!]
+  deleteMany: [MoimScalarWhereInput!]
+  updateMany: [MoimUpdateManyWithWhereNestedInput!]
+}
+
+input MoimUpdateManyWithWhereNestedInput {
+  where: MoimScalarWhereInput!
+  data: MoimUpdateManyDataInput!
+}
+
+input MoimUpdateWithoutCreatorDataInput {
+  place: String
+  description: String
+  maxEntry: Int
+  time: DateTime
+  participants: UserUpdateManyWithoutJoinedMoimInput
+  gender: String
+}
+
+input MoimUpdateWithoutParticipantsDataInput {
+  place: String
+  description: String
+  maxEntry: Int
+  time: DateTime
+  creator: UserUpdateOneRequiredWithoutCreatedMoimInput
+  gender: String
+}
+
+input MoimUpdateWithWhereUniqueWithoutCreatorInput {
+  where: MoimWhereUniqueInput!
+  data: MoimUpdateWithoutCreatorDataInput!
+}
+
+input MoimUpdateWithWhereUniqueWithoutParticipantsInput {
+  where: MoimWhereUniqueInput!
+  data: MoimUpdateWithoutParticipantsDataInput!
+}
+
+input MoimUpsertWithWhereUniqueWithoutCreatorInput {
+  where: MoimWhereUniqueInput!
+  update: MoimUpdateWithoutCreatorDataInput!
+  create: MoimCreateWithoutCreatorInput!
+}
+
+input MoimUpsertWithWhereUniqueWithoutParticipantsInput {
+  where: MoimWhereUniqueInput!
+  update: MoimUpdateWithoutParticipantsDataInput!
+  create: MoimCreateWithoutParticipantsInput!
+}
+
+input MoimWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  place: String
+  place_not: String
+  place_in: [String!]
+  place_not_in: [String!]
+  place_lt: String
+  place_lte: String
+  place_gt: String
+  place_gte: String
+  place_contains: String
+  place_not_contains: String
+  place_starts_with: String
+  place_not_starts_with: String
+  place_ends_with: String
+  place_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  maxEntry: Int
+  maxEntry_not: Int
+  maxEntry_in: [Int!]
+  maxEntry_not_in: [Int!]
+  maxEntry_lt: Int
+  maxEntry_lte: Int
+  maxEntry_gt: Int
+  maxEntry_gte: Int
+  time: DateTime
+  time_not: DateTime
+  time_in: [DateTime!]
+  time_not_in: [DateTime!]
+  time_lt: DateTime
+  time_lte: DateTime
+  time_gt: DateTime
+  time_gte: DateTime
+  creator: UserWhereInput
+  participants_every: UserWhereInput
+  participants_some: UserWhereInput
+  participants_none: UserWhereInput
+  gender: String
+  gender_not: String
+  gender_in: [String!]
+  gender_not_in: [String!]
+  gender_lt: String
+  gender_lte: String
+  gender_gt: String
+  gender_gte: String
+  gender_contains: String
+  gender_not_contains: String
+  gender_starts_with: String
+  gender_not_starts_with: String
+  gender_ends_with: String
+  gender_not_ends_with: String
+  AND: [MoimWhereInput!]
+  OR: [MoimWhereInput!]
+  NOT: [MoimWhereInput!]
+}
+
+input MoimWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
+  createMoim(data: MoimCreateInput!): Moim!
+  updateMoim(data: MoimUpdateInput!, where: MoimWhereUniqueInput!): Moim
+  updateManyMoims(data: MoimUpdateManyMutationInput!, where: MoimWhereInput): BatchPayload!
+  upsertMoim(where: MoimWhereUniqueInput!, create: MoimCreateInput!, update: MoimUpdateInput!): Moim!
+  deleteMoim(where: MoimWhereUniqueInput!): Moim
+  deleteManyMoims(where: MoimWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -51,283 +415,10 @@ type PageInfo {
   endCursor: String
 }
 
-type Post {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  published: Boolean!
-  title: String!
-  content: String
-  author: User!
-}
-
-type PostConnection {
-  pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
-}
-
-input PostCreateInput {
-  id: ID
-  published: Boolean
-  title: String!
-  content: String
-  author: UserCreateOneWithoutPostsInput!
-}
-
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-input PostCreateWithoutAuthorInput {
-  id: ID
-  published: Boolean
-  title: String!
-  content: String
-}
-
-type PostEdge {
-  node: Post!
-  cursor: String!
-}
-
-enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  published_ASC
-  published_DESC
-  title_ASC
-  title_DESC
-  content_ASC
-  content_DESC
-}
-
-type PostPreviousValues {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  published: Boolean!
-  title: String!
-  content: String
-}
-
-input PostScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  published: Boolean
-  published_not: Boolean
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  AND: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
-}
-
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-  updatedFields: [String!]
-  previousValues: PostPreviousValues
-}
-
-input PostSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: PostWhereInput
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
-  NOT: [PostSubscriptionWhereInput!]
-}
-
-input PostUpdateInput {
-  published: Boolean
-  title: String
-  content: String
-  author: UserUpdateOneRequiredWithoutPostsInput
-}
-
-input PostUpdateManyDataInput {
-  published: Boolean
-  title: String
-  content: String
-}
-
-input PostUpdateManyMutationInput {
-  published: Boolean
-  title: String
-  content: String
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  delete: [PostWhereUniqueInput!]
-  connect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-  deleteMany: [PostScalarWhereInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  published: Boolean
-  title: String
-  content: String
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
-}
-
-input PostWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  published: Boolean
-  published_not: Boolean
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  author: UserWhereInput
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
 type Query {
-  post(where: PostWhereUniqueInput!): Post
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  moim(where: MoimWhereUniqueInput!): Moim
+  moims(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Moim]!
+  moimsConnection(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MoimConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -335,15 +426,19 @@ type Query {
 }
 
 type Subscription {
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  moim(where: MoimSubscriptionWhereInput): MoimSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
   id: ID!
-  email: String!
-  name: String
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  name: String!
+  gender: String!
+  certKey: String!
+  joinedAt: DateTime!
+  createdMoim(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Moim!]
+  joinedMoim(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Moim!]
+  blacklist(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type UserConnection {
@@ -354,20 +449,45 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  email: String!
-  name: String
-  posts: PostCreateManyWithoutAuthorInput
+  name: String!
+  gender: String!
+  certKey: String!
+  createdMoim: MoimCreateManyWithoutCreatorInput
+  joinedMoim: MoimCreateManyWithoutParticipantsInput
+  blacklist: UserCreateManyInput
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutJoinedMoimInput {
+  create: [UserCreateWithoutJoinedMoimInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutCreatedMoimInput {
+  create: UserCreateWithoutCreatedMoimInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutPostsInput {
+input UserCreateWithoutCreatedMoimInput {
   id: ID
-  email: String!
-  name: String
+  name: String!
+  gender: String!
+  certKey: String!
+  joinedMoim: MoimCreateManyWithoutParticipantsInput
+  blacklist: UserCreateManyInput
+}
+
+input UserCreateWithoutJoinedMoimInput {
+  id: ID
+  name: String!
+  gender: String!
+  certKey: String!
+  createdMoim: MoimCreateManyWithoutCreatorInput
+  blacklist: UserCreateManyInput
 }
 
 type UserEdge {
@@ -378,16 +498,92 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
-  email_ASC
-  email_DESC
   name_ASC
   name_DESC
+  gender_ASC
+  gender_DESC
+  certKey_ASC
+  certKey_DESC
+  joinedAt_ASC
+  joinedAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
-  email: String!
+  name: String!
+  gender: String!
+  certKey: String!
+  joinedAt: DateTime!
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  gender: String
+  gender_not: String
+  gender_in: [String!]
+  gender_not_in: [String!]
+  gender_lt: String
+  gender_lte: String
+  gender_gt: String
+  gender_gte: String
+  gender_contains: String
+  gender_not_contains: String
+  gender_starts_with: String
+  gender_not_starts_with: String
+  gender_ends_with: String
+  gender_not_ends_with: String
+  certKey: String
+  certKey_not: String
+  certKey_in: [String!]
+  certKey_not_in: [String!]
+  certKey_lt: String
+  certKey_lte: String
+  certKey_gt: String
+  certKey_gte: String
+  certKey_contains: String
+  certKey_not_contains: String
+  certKey_starts_with: String
+  certKey_not_starts_with: String
+  certKey_ends_with: String
+  certKey_not_ends_with: String
+  joinedAt: DateTime
+  joinedAt_not: DateTime
+  joinedAt_in: [DateTime!]
+  joinedAt_not_in: [DateTime!]
+  joinedAt_lt: DateTime
+  joinedAt_lte: DateTime
+  joinedAt_gt: DateTime
+  joinedAt_gte: DateTime
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -408,32 +604,113 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
-input UserUpdateInput {
-  email: String
+input UserUpdateDataInput {
   name: String
-  posts: PostUpdateManyWithoutAuthorInput
+  gender: String
+  certKey: String
+  createdMoim: MoimUpdateManyWithoutCreatorInput
+  joinedMoim: MoimUpdateManyWithoutParticipantsInput
+  blacklist: UserUpdateManyInput
+}
+
+input UserUpdateInput {
+  name: String
+  gender: String
+  certKey: String
+  createdMoim: MoimUpdateManyWithoutCreatorInput
+  joinedMoim: MoimUpdateManyWithoutParticipantsInput
+  blacklist: UserUpdateManyInput
+}
+
+input UserUpdateManyDataInput {
+  name: String
+  gender: String
+  certKey: String
+}
+
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyMutationInput {
-  email: String
   name: String
+  gender: String
+  certKey: String
 }
 
-input UserUpdateOneRequiredWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
+input UserUpdateManyWithoutJoinedMoimInput {
+  create: [UserCreateWithoutJoinedMoimInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutJoinedMoimInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutJoinedMoimInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpdateOneRequiredWithoutCreatedMoimInput {
+  create: UserCreateWithoutCreatedMoimInput
+  update: UserUpdateWithoutCreatedMoimDataInput
+  upsert: UserUpsertWithoutCreatedMoimInput
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateWithoutPostsDataInput {
-  email: String
+input UserUpdateWithoutCreatedMoimDataInput {
   name: String
+  gender: String
+  certKey: String
+  joinedMoim: MoimUpdateManyWithoutParticipantsInput
+  blacklist: UserUpdateManyInput
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input UserUpdateWithoutJoinedMoimDataInput {
+  name: String
+  gender: String
+  certKey: String
+  createdMoim: MoimUpdateManyWithoutCreatorInput
+  blacklist: UserUpdateManyInput
+}
+
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutJoinedMoimInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutJoinedMoimDataInput!
+}
+
+input UserUpsertWithoutCreatedMoimInput {
+  update: UserUpdateWithoutCreatedMoimDataInput!
+  create: UserCreateWithoutCreatedMoimInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutJoinedMoimInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutJoinedMoimDataInput!
+  create: UserCreateWithoutJoinedMoimInput!
 }
 
 input UserWhereInput {
@@ -451,20 +728,6 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -479,9 +742,51 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
+  gender: String
+  gender_not: String
+  gender_in: [String!]
+  gender_not_in: [String!]
+  gender_lt: String
+  gender_lte: String
+  gender_gt: String
+  gender_gte: String
+  gender_contains: String
+  gender_not_contains: String
+  gender_starts_with: String
+  gender_not_starts_with: String
+  gender_ends_with: String
+  gender_not_ends_with: String
+  certKey: String
+  certKey_not: String
+  certKey_in: [String!]
+  certKey_not_in: [String!]
+  certKey_lt: String
+  certKey_lte: String
+  certKey_gt: String
+  certKey_gte: String
+  certKey_contains: String
+  certKey_not_contains: String
+  certKey_starts_with: String
+  certKey_not_starts_with: String
+  certKey_ends_with: String
+  certKey_not_ends_with: String
+  joinedAt: DateTime
+  joinedAt_not: DateTime
+  joinedAt_in: [DateTime!]
+  joinedAt_not_in: [DateTime!]
+  joinedAt_lt: DateTime
+  joinedAt_lte: DateTime
+  joinedAt_gt: DateTime
+  joinedAt_gte: DateTime
+  createdMoim_every: MoimWhereInput
+  createdMoim_some: MoimWhereInput
+  createdMoim_none: MoimWhereInput
+  joinedMoim_every: MoimWhereInput
+  joinedMoim_some: MoimWhereInput
+  joinedMoim_none: MoimWhereInput
+  blacklist_every: UserWhereInput
+  blacklist_some: UserWhereInput
+  blacklist_none: UserWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -489,7 +794,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  email: String
+  certKey: String
 }
 `
       }

@@ -1,31 +1,53 @@
 scalar DateTime
 
 type Query {
-  feed: [Post!]!
-  filterPosts(searchString: String): [Post!]!
-  post(id: ID!): Post
+  feed: [Moim!]
+  # filterPosts(searchString: String): [Post!]!
+  # post(id: ID!): Post
 }
 
 type Mutation {
-  signupUser(email: String!, name: String): User!
-  createDraft(title: String!, content: String, authorEmail: String!): Post!
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
-}
-
-type Post {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  published: Boolean!
-  title: String!
-  content: String
-  author: User!
+  signupUser(certKey: String!, name: String!, gender: String!): User!
+  createMoim(placeId: String!, time: DateTime!, creatorId: String!, maxEntry: Int, description: String, gender: String): Moim!
+  deleteMoim(id: ID!): Moim
+  # publish(id: ID!): Moim
 }
 
 type User {
   id: ID!
-  email: String!
-  name: String
-  posts: [Post!]!
+  name: String!
+  gender: String!
+  certKey: String!
+  joinedAt: DateTime!
+  createdMoim: [Moim]
+  joinedMoim: [Moim]
+  blacklist: [User]
 }
+
+type Moim {
+  id: ID!
+  place: String!
+  description: String
+  maxEntry: Int!
+  time: DateTime!
+  creator: User!
+  participants: [User!]!
+  gender: String!
+}
+
+# type Post {
+#   id: ID!
+#   createdAt: DateTime!
+#   updatedAt: DateTime!
+#   published: Boolean!
+#   title: String!
+#   content: String
+#   author: User!
+# }
+
+# type User {
+#   id: ID!
+#   email: String!
+#   name: String
+#   posts: [Post!]!
+# }
