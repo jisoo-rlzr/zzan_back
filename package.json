@@ -5,5 +5,8 @@
   "repository": "https://higherlove@bitbucket.org/alspsm/zzan_back.git",
   "author": "jisoo <jsoo744@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "graphql-yoga": "^1.18.3"
+  }
 }
