@@ -11,7 +11,7 @@
     "prisma-client-lib": "^1.34.10"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node index.js"
+    "start": "nodemon --exec babel-node src/index.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
