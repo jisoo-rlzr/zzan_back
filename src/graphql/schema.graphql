@@ -10,7 +10,6 @@ type Mutation {
   signupUser(authType: String!, authKey: String!, name: String!, gender: String!, birthday: DateTime!, picUrl: String): User!
   createMoim(placeId: String!, time: DateTime!, creatorId: String!, maxEntry: Int, description: String, ageMin: Int, ageMax: Int, gender: String): Moim!
   deleteMoim(id: ID!): Moim
-  # publish(id: ID!): Moim
 }
 
 type User {
@@ -50,20 +49,3 @@ type Place {
   dislikes: Int!
   creator: User
 }
-
-# type Post {
-#   id: ID!
-#   createdAt: DateTime!
-#   updatedAt: DateTime!
-#   published: Boolean!
-#   title: String!
-#   content: String
-#   author: User!
-# }
-
-# type User {
-#   id: ID!
-#   email: String!
-#   name: String
-#   posts: [Post!]!
-# }
