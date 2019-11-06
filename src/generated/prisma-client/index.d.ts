@@ -151,20 +151,34 @@ export type MoimOrderByInput =
   | "maxEntry_DESC"
   | "time_ASC"
   | "time_DESC"
+  | "ageMin_ASC"
+  | "ageMin_DESC"
+  | "ageMax_ASC"
+  | "ageMax_DESC"
   | "gender_ASC"
   | "gender_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "authType_ASC"
+  | "authType_DESC"
+  | "authKey_ASC"
+  | "authKey_DESC"
   | "name_ASC"
   | "name_DESC"
   | "gender_ASC"
   | "gender_DESC"
-  | "certKey_ASC"
-  | "certKey_DESC"
   | "joinedAt_ASC"
-  | "joinedAt_DESC";
+  | "joinedAt_DESC"
+  | "birthday_ASC"
+  | "birthday_DESC"
+  | "picUrl_ASC"
+  | "picUrl_DESC"
+  | "ageMin_ASC"
+  | "ageMin_DESC"
+  | "ageMax_ASC"
+  | "ageMax_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -202,9 +216,14 @@ export interface MoimCreateManyWithoutCreatorInput {
 }
 
 export interface UserUpdateWithoutJoinedMoimDataInput {
+  authType?: Maybe<String>;
+  authKey?: Maybe<String>;
   name?: Maybe<String>;
   gender?: Maybe<String>;
-  certKey?: Maybe<String>;
+  birthday?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   createdMoim?: Maybe<MoimUpdateManyWithoutCreatorInput>;
   blacklist?: Maybe<UserUpdateManyInput>;
 }
@@ -215,8 +234,10 @@ export interface MoimCreateWithoutCreatorInput {
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time: DateTimeInput;
-  participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
 }
 
 export interface MoimUpdateWithoutParticipantsDataInput {
@@ -225,6 +246,8 @@ export interface MoimUpdateWithoutParticipantsDataInput {
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
   creator?: Maybe<UserUpdateOneRequiredWithoutCreatedMoimInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
 }
 
@@ -250,6 +273,34 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  authType?: Maybe<String>;
+  authType_not?: Maybe<String>;
+  authType_in?: Maybe<String[] | String>;
+  authType_not_in?: Maybe<String[] | String>;
+  authType_lt?: Maybe<String>;
+  authType_lte?: Maybe<String>;
+  authType_gt?: Maybe<String>;
+  authType_gte?: Maybe<String>;
+  authType_contains?: Maybe<String>;
+  authType_not_contains?: Maybe<String>;
+  authType_starts_with?: Maybe<String>;
+  authType_not_starts_with?: Maybe<String>;
+  authType_ends_with?: Maybe<String>;
+  authType_not_ends_with?: Maybe<String>;
+  authKey?: Maybe<String>;
+  authKey_not?: Maybe<String>;
+  authKey_in?: Maybe<String[] | String>;
+  authKey_not_in?: Maybe<String[] | String>;
+  authKey_lt?: Maybe<String>;
+  authKey_lte?: Maybe<String>;
+  authKey_gt?: Maybe<String>;
+  authKey_gte?: Maybe<String>;
+  authKey_contains?: Maybe<String>;
+  authKey_not_contains?: Maybe<String>;
+  authKey_starts_with?: Maybe<String>;
+  authKey_not_starts_with?: Maybe<String>;
+  authKey_ends_with?: Maybe<String>;
+  authKey_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -278,20 +329,6 @@ export interface UserWhereInput {
   gender_not_starts_with?: Maybe<String>;
   gender_ends_with?: Maybe<String>;
   gender_not_ends_with?: Maybe<String>;
-  certKey?: Maybe<String>;
-  certKey_not?: Maybe<String>;
-  certKey_in?: Maybe<String[] | String>;
-  certKey_not_in?: Maybe<String[] | String>;
-  certKey_lt?: Maybe<String>;
-  certKey_lte?: Maybe<String>;
-  certKey_gt?: Maybe<String>;
-  certKey_gte?: Maybe<String>;
-  certKey_contains?: Maybe<String>;
-  certKey_not_contains?: Maybe<String>;
-  certKey_starts_with?: Maybe<String>;
-  certKey_not_starts_with?: Maybe<String>;
-  certKey_ends_with?: Maybe<String>;
-  certKey_not_ends_with?: Maybe<String>;
   joinedAt?: Maybe<DateTimeInput>;
   joinedAt_not?: Maybe<DateTimeInput>;
   joinedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -300,6 +337,44 @@ export interface UserWhereInput {
   joinedAt_lte?: Maybe<DateTimeInput>;
   joinedAt_gt?: Maybe<DateTimeInput>;
   joinedAt_gte?: Maybe<DateTimeInput>;
+  birthday?: Maybe<DateTimeInput>;
+  birthday_not?: Maybe<DateTimeInput>;
+  birthday_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  birthday_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  birthday_lt?: Maybe<DateTimeInput>;
+  birthday_lte?: Maybe<DateTimeInput>;
+  birthday_gt?: Maybe<DateTimeInput>;
+  birthday_gte?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  picUrl_not?: Maybe<String>;
+  picUrl_in?: Maybe<String[] | String>;
+  picUrl_not_in?: Maybe<String[] | String>;
+  picUrl_lt?: Maybe<String>;
+  picUrl_lte?: Maybe<String>;
+  picUrl_gt?: Maybe<String>;
+  picUrl_gte?: Maybe<String>;
+  picUrl_contains?: Maybe<String>;
+  picUrl_not_contains?: Maybe<String>;
+  picUrl_starts_with?: Maybe<String>;
+  picUrl_not_starts_with?: Maybe<String>;
+  picUrl_ends_with?: Maybe<String>;
+  picUrl_not_ends_with?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMin_not?: Maybe<Int>;
+  ageMin_in?: Maybe<Int[] | Int>;
+  ageMin_not_in?: Maybe<Int[] | Int>;
+  ageMin_lt?: Maybe<Int>;
+  ageMin_lte?: Maybe<Int>;
+  ageMin_gt?: Maybe<Int>;
+  ageMin_gte?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
+  ageMax_not?: Maybe<Int>;
+  ageMax_in?: Maybe<Int[] | Int>;
+  ageMax_not_in?: Maybe<Int[] | Int>;
+  ageMax_lt?: Maybe<Int>;
+  ageMax_lte?: Maybe<Int>;
+  ageMax_gt?: Maybe<Int>;
+  ageMax_gte?: Maybe<Int>;
   createdMoim_every?: Maybe<MoimWhereInput>;
   createdMoim_some?: Maybe<MoimWhereInput>;
   createdMoim_none?: Maybe<MoimWhereInput>;
@@ -316,9 +391,14 @@ export interface UserWhereInput {
 
 export interface UserCreateWithoutJoinedMoimInput {
   id?: Maybe<ID_Input>;
+  authType: String;
+  authKey: String;
   name: String;
   gender: String;
-  certKey: String;
+  birthday: DateTimeInput;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   createdMoim?: Maybe<MoimCreateManyWithoutCreatorInput>;
   blacklist?: Maybe<UserCreateManyInput>;
 }
@@ -340,14 +420,21 @@ export interface MoimUpdateInput {
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
   creator?: Maybe<UserUpdateOneRequiredWithoutCreatedMoimInput>;
-  participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
 }
 
 export interface UserUpdateInput {
+  authType?: Maybe<String>;
+  authKey?: Maybe<String>;
   name?: Maybe<String>;
   gender?: Maybe<String>;
-  certKey?: Maybe<String>;
+  birthday?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   createdMoim?: Maybe<MoimUpdateManyWithoutCreatorInput>;
   joinedMoim?: Maybe<MoimUpdateManyWithoutParticipantsInput>;
   blacklist?: Maybe<UserUpdateManyInput>;
@@ -366,16 +453,21 @@ export interface UserUpsertWithoutCreatedMoimInput {
 }
 
 export interface UserUpdateWithoutCreatedMoimDataInput {
+  authType?: Maybe<String>;
+  authKey?: Maybe<String>;
   name?: Maybe<String>;
   gender?: Maybe<String>;
-  certKey?: Maybe<String>;
+  birthday?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   joinedMoim?: Maybe<MoimUpdateManyWithoutParticipantsInput>;
   blacklist?: Maybe<UserUpdateManyInput>;
 }
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  certKey?: Maybe<String>;
+  authKey?: Maybe<String>;
 }>;
 
 export interface UserScalarWhereInput {
@@ -393,6 +485,34 @@ export interface UserScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  authType?: Maybe<String>;
+  authType_not?: Maybe<String>;
+  authType_in?: Maybe<String[] | String>;
+  authType_not_in?: Maybe<String[] | String>;
+  authType_lt?: Maybe<String>;
+  authType_lte?: Maybe<String>;
+  authType_gt?: Maybe<String>;
+  authType_gte?: Maybe<String>;
+  authType_contains?: Maybe<String>;
+  authType_not_contains?: Maybe<String>;
+  authType_starts_with?: Maybe<String>;
+  authType_not_starts_with?: Maybe<String>;
+  authType_ends_with?: Maybe<String>;
+  authType_not_ends_with?: Maybe<String>;
+  authKey?: Maybe<String>;
+  authKey_not?: Maybe<String>;
+  authKey_in?: Maybe<String[] | String>;
+  authKey_not_in?: Maybe<String[] | String>;
+  authKey_lt?: Maybe<String>;
+  authKey_lte?: Maybe<String>;
+  authKey_gt?: Maybe<String>;
+  authKey_gte?: Maybe<String>;
+  authKey_contains?: Maybe<String>;
+  authKey_not_contains?: Maybe<String>;
+  authKey_starts_with?: Maybe<String>;
+  authKey_not_starts_with?: Maybe<String>;
+  authKey_ends_with?: Maybe<String>;
+  authKey_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -421,20 +541,6 @@ export interface UserScalarWhereInput {
   gender_not_starts_with?: Maybe<String>;
   gender_ends_with?: Maybe<String>;
   gender_not_ends_with?: Maybe<String>;
-  certKey?: Maybe<String>;
-  certKey_not?: Maybe<String>;
-  certKey_in?: Maybe<String[] | String>;
-  certKey_not_in?: Maybe<String[] | String>;
-  certKey_lt?: Maybe<String>;
-  certKey_lte?: Maybe<String>;
-  certKey_gt?: Maybe<String>;
-  certKey_gte?: Maybe<String>;
-  certKey_contains?: Maybe<String>;
-  certKey_not_contains?: Maybe<String>;
-  certKey_starts_with?: Maybe<String>;
-  certKey_not_starts_with?: Maybe<String>;
-  certKey_ends_with?: Maybe<String>;
-  certKey_not_ends_with?: Maybe<String>;
   joinedAt?: Maybe<DateTimeInput>;
   joinedAt_not?: Maybe<DateTimeInput>;
   joinedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -443,15 +549,58 @@ export interface UserScalarWhereInput {
   joinedAt_lte?: Maybe<DateTimeInput>;
   joinedAt_gt?: Maybe<DateTimeInput>;
   joinedAt_gte?: Maybe<DateTimeInput>;
+  birthday?: Maybe<DateTimeInput>;
+  birthday_not?: Maybe<DateTimeInput>;
+  birthday_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  birthday_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  birthday_lt?: Maybe<DateTimeInput>;
+  birthday_lte?: Maybe<DateTimeInput>;
+  birthday_gt?: Maybe<DateTimeInput>;
+  birthday_gte?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  picUrl_not?: Maybe<String>;
+  picUrl_in?: Maybe<String[] | String>;
+  picUrl_not_in?: Maybe<String[] | String>;
+  picUrl_lt?: Maybe<String>;
+  picUrl_lte?: Maybe<String>;
+  picUrl_gt?: Maybe<String>;
+  picUrl_gte?: Maybe<String>;
+  picUrl_contains?: Maybe<String>;
+  picUrl_not_contains?: Maybe<String>;
+  picUrl_starts_with?: Maybe<String>;
+  picUrl_not_starts_with?: Maybe<String>;
+  picUrl_ends_with?: Maybe<String>;
+  picUrl_not_ends_with?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMin_not?: Maybe<Int>;
+  ageMin_in?: Maybe<Int[] | Int>;
+  ageMin_not_in?: Maybe<Int[] | Int>;
+  ageMin_lt?: Maybe<Int>;
+  ageMin_lte?: Maybe<Int>;
+  ageMin_gt?: Maybe<Int>;
+  ageMin_gte?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
+  ageMax_not?: Maybe<Int>;
+  ageMax_in?: Maybe<Int[] | Int>;
+  ageMax_not_in?: Maybe<Int[] | Int>;
+  ageMax_lt?: Maybe<Int>;
+  ageMax_lte?: Maybe<Int>;
+  ageMax_gt?: Maybe<Int>;
+  ageMax_gte?: Maybe<Int>;
   AND?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
   OR?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
   NOT?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
 }
 
 export interface UserUpdateManyDataInput {
+  authType?: Maybe<String>;
+  authKey?: Maybe<String>;
   name?: Maybe<String>;
   gender?: Maybe<String>;
-  certKey?: Maybe<String>;
+  birthday?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
 }
 
 export interface MoimUpdateWithWhereUniqueWithoutParticipantsInput {
@@ -547,6 +696,22 @@ export interface MoimScalarWhereInput {
   time_lte?: Maybe<DateTimeInput>;
   time_gt?: Maybe<DateTimeInput>;
   time_gte?: Maybe<DateTimeInput>;
+  ageMin?: Maybe<Int>;
+  ageMin_not?: Maybe<Int>;
+  ageMin_in?: Maybe<Int[] | Int>;
+  ageMin_not_in?: Maybe<Int[] | Int>;
+  ageMin_lt?: Maybe<Int>;
+  ageMin_lte?: Maybe<Int>;
+  ageMin_gt?: Maybe<Int>;
+  ageMin_gte?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
+  ageMax_not?: Maybe<Int>;
+  ageMax_in?: Maybe<Int[] | Int>;
+  ageMax_not_in?: Maybe<Int[] | Int>;
+  ageMax_lt?: Maybe<Int>;
+  ageMax_lte?: Maybe<Int>;
+  ageMax_gt?: Maybe<Int>;
+  ageMax_gte?: Maybe<Int>;
   gender?: Maybe<String>;
   gender_not?: Maybe<String>;
   gender_in?: Maybe<String[] | String>;
@@ -626,9 +791,22 @@ export interface MoimWhereInput {
   time_gt?: Maybe<DateTimeInput>;
   time_gte?: Maybe<DateTimeInput>;
   creator?: Maybe<UserWhereInput>;
-  participants_every?: Maybe<UserWhereInput>;
-  participants_some?: Maybe<UserWhereInput>;
-  participants_none?: Maybe<UserWhereInput>;
+  ageMin?: Maybe<Int>;
+  ageMin_not?: Maybe<Int>;
+  ageMin_in?: Maybe<Int[] | Int>;
+  ageMin_not_in?: Maybe<Int[] | Int>;
+  ageMin_lt?: Maybe<Int>;
+  ageMin_lte?: Maybe<Int>;
+  ageMin_gt?: Maybe<Int>;
+  ageMin_gte?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
+  ageMax_not?: Maybe<Int>;
+  ageMax_in?: Maybe<Int[] | Int>;
+  ageMax_not_in?: Maybe<Int[] | Int>;
+  ageMax_lt?: Maybe<Int>;
+  ageMax_lte?: Maybe<Int>;
+  ageMax_gt?: Maybe<Int>;
+  ageMax_gte?: Maybe<Int>;
   gender?: Maybe<String>;
   gender_not?: Maybe<String>;
   gender_in?: Maybe<String[] | String>;
@@ -643,6 +821,9 @@ export interface MoimWhereInput {
   gender_not_starts_with?: Maybe<String>;
   gender_ends_with?: Maybe<String>;
   gender_not_ends_with?: Maybe<String>;
+  participants_every?: Maybe<UserWhereInput>;
+  participants_some?: Maybe<UserWhereInput>;
+  participants_none?: Maybe<UserWhereInput>;
   AND?: Maybe<MoimWhereInput[] | MoimWhereInput>;
   OR?: Maybe<MoimWhereInput[] | MoimWhereInput>;
   NOT?: Maybe<MoimWhereInput[] | MoimWhereInput>;
@@ -654,9 +835,14 @@ export interface MoimUpdateManyWithWhereNestedInput {
 }
 
 export interface UserUpdateManyMutationInput {
+  authType?: Maybe<String>;
+  authKey?: Maybe<String>;
   name?: Maybe<String>;
   gender?: Maybe<String>;
-  certKey?: Maybe<String>;
+  birthday?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
 }
 
 export interface MoimUpdateManyDataInput {
@@ -664,6 +850,8 @@ export interface MoimUpdateManyDataInput {
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
 }
 
@@ -705,17 +893,27 @@ export interface UserUpdateWithWhereUniqueNestedInput {
 
 export interface UserCreateWithoutCreatedMoimInput {
   id?: Maybe<ID_Input>;
+  authType: String;
+  authKey: String;
   name: String;
   gender: String;
-  certKey: String;
+  birthday: DateTimeInput;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   joinedMoim?: Maybe<MoimCreateManyWithoutParticipantsInput>;
   blacklist?: Maybe<UserCreateManyInput>;
 }
 
 export interface UserUpdateDataInput {
+  authType?: Maybe<String>;
+  authKey?: Maybe<String>;
   name?: Maybe<String>;
   gender?: Maybe<String>;
-  certKey?: Maybe<String>;
+  birthday?: Maybe<DateTimeInput>;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   createdMoim?: Maybe<MoimUpdateManyWithoutCreatorInput>;
   joinedMoim?: Maybe<MoimUpdateManyWithoutParticipantsInput>;
   blacklist?: Maybe<UserUpdateManyInput>;
@@ -723,9 +921,14 @@ export interface UserUpdateDataInput {
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
+  authType: String;
+  authKey: String;
   name: String;
   gender: String;
-  certKey: String;
+  birthday: DateTimeInput;
+  picUrl?: Maybe<String>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   createdMoim?: Maybe<MoimCreateManyWithoutCreatorInput>;
   joinedMoim?: Maybe<MoimCreateManyWithoutParticipantsInput>;
   blacklist?: Maybe<UserCreateManyInput>;
@@ -758,6 +961,8 @@ export interface MoimUpdateManyMutationInput {
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
 }
 
@@ -793,8 +998,10 @@ export interface MoimUpdateWithoutCreatorDataInput {
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
-  participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
 }
 
 export interface MoimUpdateWithWhereUniqueWithoutCreatorInput {
@@ -826,6 +1033,8 @@ export interface MoimCreateWithoutParticipantsInput {
   maxEntry?: Maybe<Int>;
   time: DateTimeInput;
   creator: UserCreateOneWithoutCreatedMoimInput;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
 }
 
@@ -836,8 +1045,10 @@ export interface MoimCreateInput {
   maxEntry?: Maybe<Int>;
   time: DateTimeInput;
   creator: UserCreateOneWithoutCreatedMoimInput;
-  participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
+  ageMin?: Maybe<Int>;
+  ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
 }
 
 export interface NodeNode {
@@ -846,30 +1057,45 @@ export interface NodeNode {
 
 export interface UserPreviousValues {
   id: ID_Output;
+  authType: String;
+  authKey: String;
   name: String;
   gender: String;
-  certKey: String;
   joinedAt: DateTimeOutput;
+  birthday: DateTimeOutput;
+  picUrl: String;
+  ageMin: Int;
+  ageMax: Int;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  authType: () => Promise<String>;
+  authKey: () => Promise<String>;
   name: () => Promise<String>;
   gender: () => Promise<String>;
-  certKey: () => Promise<String>;
   joinedAt: () => Promise<DateTimeOutput>;
+  birthday: () => Promise<DateTimeOutput>;
+  picUrl: () => Promise<String>;
+  ageMin: () => Promise<Int>;
+  ageMax: () => Promise<Int>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  authType: () => Promise<AsyncIterator<String>>;
+  authKey: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   gender: () => Promise<AsyncIterator<String>>;
-  certKey: () => Promise<AsyncIterator<String>>;
   joinedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  birthday: () => Promise<AsyncIterator<DateTimeOutput>>;
+  picUrl: () => Promise<AsyncIterator<String>>;
+  ageMin: () => Promise<AsyncIterator<Int>>;
+  ageMax: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -903,6 +1129,8 @@ export interface Moim {
   description?: String;
   maxEntry: Int;
   time: DateTimeOutput;
+  ageMin: Int;
+  ageMax: Int;
   gender: String;
 }
 
@@ -913,6 +1141,9 @@ export interface MoimPromise extends Promise<Moim>, Fragmentable {
   maxEntry: () => Promise<Int>;
   time: () => Promise<DateTimeOutput>;
   creator: <T = UserPromise>() => T;
+  ageMin: () => Promise<Int>;
+  ageMax: () => Promise<Int>;
+  gender: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -922,7 +1153,6 @@ export interface MoimPromise extends Promise<Moim>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  gender: () => Promise<String>;
 }
 
 export interface MoimSubscription
@@ -934,6 +1164,9 @@ export interface MoimSubscription
   maxEntry: () => Promise<AsyncIterator<Int>>;
   time: () => Promise<AsyncIterator<DateTimeOutput>>;
   creator: <T = UserSubscription>() => T;
+  ageMin: () => Promise<AsyncIterator<Int>>;
+  ageMax: () => Promise<AsyncIterator<Int>>;
+  gender: () => Promise<AsyncIterator<String>>;
   participants: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -943,7 +1176,6 @@ export interface MoimSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  gender: () => Promise<AsyncIterator<String>>;
 }
 
 export interface MoimNullablePromise
@@ -955,6 +1187,9 @@ export interface MoimNullablePromise
   maxEntry: () => Promise<Int>;
   time: () => Promise<DateTimeOutput>;
   creator: <T = UserPromise>() => T;
+  ageMin: () => Promise<Int>;
+  ageMax: () => Promise<Int>;
+  gender: () => Promise<String>;
   participants: <T = FragmentableArray<User>>(args?: {
     where?: UserWhereInput;
     orderBy?: UserOrderByInput;
@@ -964,7 +1199,6 @@ export interface MoimNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  gender: () => Promise<String>;
 }
 
 export interface BatchPayload {
@@ -985,18 +1219,28 @@ export interface BatchPayloadSubscription
 
 export interface User {
   id: ID_Output;
+  authType: String;
+  authKey: String;
   name: String;
   gender: String;
-  certKey: String;
   joinedAt: DateTimeOutput;
+  birthday: DateTimeOutput;
+  picUrl: String;
+  ageMin: Int;
+  ageMax: Int;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
+  authType: () => Promise<String>;
+  authKey: () => Promise<String>;
   name: () => Promise<String>;
   gender: () => Promise<String>;
-  certKey: () => Promise<String>;
   joinedAt: () => Promise<DateTimeOutput>;
+  birthday: () => Promise<DateTimeOutput>;
+  picUrl: () => Promise<String>;
+  ageMin: () => Promise<Int>;
+  ageMax: () => Promise<Int>;
   createdMoim: <T = FragmentableArray<Moim>>(args?: {
     where?: MoimWhereInput;
     orderBy?: MoimOrderByInput;
@@ -1030,10 +1274,15 @@ export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  authType: () => Promise<AsyncIterator<String>>;
+  authKey: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
   gender: () => Promise<AsyncIterator<String>>;
-  certKey: () => Promise<AsyncIterator<String>>;
   joinedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  birthday: () => Promise<AsyncIterator<DateTimeOutput>>;
+  picUrl: () => Promise<AsyncIterator<String>>;
+  ageMin: () => Promise<AsyncIterator<Int>>;
+  ageMax: () => Promise<AsyncIterator<Int>>;
   createdMoim: <T = Promise<AsyncIterator<MoimSubscription>>>(args?: {
     where?: MoimWhereInput;
     orderBy?: MoimOrderByInput;
@@ -1067,10 +1316,15 @@ export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  authType: () => Promise<String>;
+  authKey: () => Promise<String>;
   name: () => Promise<String>;
   gender: () => Promise<String>;
-  certKey: () => Promise<String>;
   joinedAt: () => Promise<DateTimeOutput>;
+  birthday: () => Promise<DateTimeOutput>;
+  picUrl: () => Promise<String>;
+  ageMin: () => Promise<Int>;
+  ageMax: () => Promise<Int>;
   createdMoim: <T = FragmentableArray<Moim>>(args?: {
     where?: MoimWhereInput;
     orderBy?: MoimOrderByInput;
@@ -1192,6 +1446,8 @@ export interface MoimPreviousValues {
   description?: String;
   maxEntry: Int;
   time: DateTimeOutput;
+  ageMin: Int;
+  ageMax: Int;
   gender: String;
 }
 
@@ -1203,6 +1459,8 @@ export interface MoimPreviousValuesPromise
   description: () => Promise<String>;
   maxEntry: () => Promise<Int>;
   time: () => Promise<DateTimeOutput>;
+  ageMin: () => Promise<Int>;
+  ageMax: () => Promise<Int>;
   gender: () => Promise<String>;
 }
 
@@ -1214,6 +1472,8 @@ export interface MoimPreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   maxEntry: () => Promise<AsyncIterator<Int>>;
   time: () => Promise<AsyncIterator<DateTimeOutput>>;
+  ageMin: () => Promise<AsyncIterator<Int>>;
+  ageMax: () => Promise<AsyncIterator<Int>>;
   gender: () => Promise<AsyncIterator<String>>;
 }
 

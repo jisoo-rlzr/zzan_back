@@ -7,18 +7,23 @@ type Query {
 }
 
 type Mutation {
-  signupUser(certKey: String!, name: String!, gender: String!): User!
-  createMoim(placeId: String!, time: DateTime!, creatorId: String!, maxEntry: Int, description: String, gender: String): Moim!
+  signupUser(authType: String!, authKey: String!, name: String!, gender: String!, birthday: DateTime!, picUrl: String): User!
+  createMoim(placeId: String!, time: DateTime!, creatorId: String!, maxEntry: Int, description: String, ageMin: Int, ageMax: Int, gender: String): Moim!
   deleteMoim(id: ID!): Moim
   # publish(id: ID!): Moim
 }
 
 type User {
   id: ID!
+  authType: String!
+  authKey: String!
   name: String!
   gender: String!
-  certKey: String!
   joinedAt: DateTime!
+  birthday: DateTime!
+  picUrl: String!
+  ageMin: Int!
+  ageMax: Int!
   createdMoim: [Moim]
   joinedMoim: [Moim]
   blacklist: [User]
@@ -31,6 +36,8 @@ type Moim {
   maxEntry: Int!
   time: DateTime!
   creator: User!
+  ageMin: Int!
+  ageMax: Int!
   participants: [User!]!
   gender: String!
 }

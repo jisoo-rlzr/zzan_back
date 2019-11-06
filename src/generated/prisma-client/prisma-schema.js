@@ -26,8 +26,10 @@ type Moim {
   maxEntry: Int!
   time: DateTime!
   creator: User!
-  participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  ageMin: Int!
+  ageMax: Int!
   gender: String!
+  participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type MoimConnection {
@@ -43,8 +45,10 @@ input MoimCreateInput {
   maxEntry: Int
   time: DateTime!
   creator: UserCreateOneWithoutCreatedMoimInput!
-  participants: UserCreateManyWithoutJoinedMoimInput
+  ageMin: Int
+  ageMax: Int
   gender: String
+  participants: UserCreateManyWithoutJoinedMoimInput
 }
 
 input MoimCreateManyWithoutCreatorInput {
@@ -63,8 +67,10 @@ input MoimCreateWithoutCreatorInput {
   description: String
   maxEntry: Int
   time: DateTime!
-  participants: UserCreateManyWithoutJoinedMoimInput
+  ageMin: Int
+  ageMax: Int
   gender: String
+  participants: UserCreateManyWithoutJoinedMoimInput
 }
 
 input MoimCreateWithoutParticipantsInput {
@@ -74,6 +80,8 @@ input MoimCreateWithoutParticipantsInput {
   maxEntry: Int
   time: DateTime!
   creator: UserCreateOneWithoutCreatedMoimInput!
+  ageMin: Int
+  ageMax: Int
   gender: String
 }
 
@@ -93,6 +101,10 @@ enum MoimOrderByInput {
   maxEntry_DESC
   time_ASC
   time_DESC
+  ageMin_ASC
+  ageMin_DESC
+  ageMax_ASC
+  ageMax_DESC
   gender_ASC
   gender_DESC
 }
@@ -103,6 +115,8 @@ type MoimPreviousValues {
   description: String
   maxEntry: Int!
   time: DateTime!
+  ageMin: Int!
+  ageMax: Int!
   gender: String!
 }
 
@@ -165,6 +179,22 @@ input MoimScalarWhereInput {
   time_lte: DateTime
   time_gt: DateTime
   time_gte: DateTime
+  ageMin: Int
+  ageMin_not: Int
+  ageMin_in: [Int!]
+  ageMin_not_in: [Int!]
+  ageMin_lt: Int
+  ageMin_lte: Int
+  ageMin_gt: Int
+  ageMin_gte: Int
+  ageMax: Int
+  ageMax_not: Int
+  ageMax_in: [Int!]
+  ageMax_not_in: [Int!]
+  ageMax_lt: Int
+  ageMax_lte: Int
+  ageMax_gt: Int
+  ageMax_gte: Int
   gender: String
   gender_not: String
   gender_in: [String!]
@@ -208,8 +238,10 @@ input MoimUpdateInput {
   maxEntry: Int
   time: DateTime
   creator: UserUpdateOneRequiredWithoutCreatedMoimInput
-  participants: UserUpdateManyWithoutJoinedMoimInput
+  ageMin: Int
+  ageMax: Int
   gender: String
+  participants: UserUpdateManyWithoutJoinedMoimInput
 }
 
 input MoimUpdateManyDataInput {
@@ -217,6 +249,8 @@ input MoimUpdateManyDataInput {
   description: String
   maxEntry: Int
   time: DateTime
+  ageMin: Int
+  ageMax: Int
   gender: String
 }
 
@@ -225,6 +259,8 @@ input MoimUpdateManyMutationInput {
   description: String
   maxEntry: Int
   time: DateTime
+  ageMin: Int
+  ageMax: Int
   gender: String
 }
 
@@ -262,8 +298,10 @@ input MoimUpdateWithoutCreatorDataInput {
   description: String
   maxEntry: Int
   time: DateTime
-  participants: UserUpdateManyWithoutJoinedMoimInput
+  ageMin: Int
+  ageMax: Int
   gender: String
+  participants: UserUpdateManyWithoutJoinedMoimInput
 }
 
 input MoimUpdateWithoutParticipantsDataInput {
@@ -272,6 +310,8 @@ input MoimUpdateWithoutParticipantsDataInput {
   maxEntry: Int
   time: DateTime
   creator: UserUpdateOneRequiredWithoutCreatedMoimInput
+  ageMin: Int
+  ageMax: Int
   gender: String
 }
 
@@ -357,9 +397,22 @@ input MoimWhereInput {
   time_gt: DateTime
   time_gte: DateTime
   creator: UserWhereInput
-  participants_every: UserWhereInput
-  participants_some: UserWhereInput
-  participants_none: UserWhereInput
+  ageMin: Int
+  ageMin_not: Int
+  ageMin_in: [Int!]
+  ageMin_not_in: [Int!]
+  ageMin_lt: Int
+  ageMin_lte: Int
+  ageMin_gt: Int
+  ageMin_gte: Int
+  ageMax: Int
+  ageMax_not: Int
+  ageMax_in: [Int!]
+  ageMax_not_in: [Int!]
+  ageMax_lt: Int
+  ageMax_lte: Int
+  ageMax_gt: Int
+  ageMax_gte: Int
   gender: String
   gender_not: String
   gender_in: [String!]
@@ -374,6 +427,9 @@ input MoimWhereInput {
   gender_not_starts_with: String
   gender_ends_with: String
   gender_not_ends_with: String
+  participants_every: UserWhereInput
+  participants_some: UserWhereInput
+  participants_none: UserWhereInput
   AND: [MoimWhereInput!]
   OR: [MoimWhereInput!]
   NOT: [MoimWhereInput!]
@@ -432,10 +488,15 @@ type Subscription {
 
 type User {
   id: ID!
+  authType: String!
+  authKey: String!
   name: String!
   gender: String!
-  certKey: String!
   joinedAt: DateTime!
+  birthday: DateTime!
+  picUrl: String!
+  ageMin: Int!
+  ageMax: Int!
   createdMoim(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Moim!]
   joinedMoim(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Moim!]
   blacklist(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -449,9 +510,14 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
+  authType: String!
+  authKey: String!
   name: String!
   gender: String!
-  certKey: String!
+  birthday: DateTime!
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   createdMoim: MoimCreateManyWithoutCreatorInput
   joinedMoim: MoimCreateManyWithoutParticipantsInput
   blacklist: UserCreateManyInput
@@ -474,18 +540,28 @@ input UserCreateOneWithoutCreatedMoimInput {
 
 input UserCreateWithoutCreatedMoimInput {
   id: ID
+  authType: String!
+  authKey: String!
   name: String!
   gender: String!
-  certKey: String!
+  birthday: DateTime!
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   joinedMoim: MoimCreateManyWithoutParticipantsInput
   blacklist: UserCreateManyInput
 }
 
 input UserCreateWithoutJoinedMoimInput {
   id: ID
+  authType: String!
+  authKey: String!
   name: String!
   gender: String!
-  certKey: String!
+  birthday: DateTime!
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   createdMoim: MoimCreateManyWithoutCreatorInput
   blacklist: UserCreateManyInput
 }
@@ -498,22 +574,37 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  authType_ASC
+  authType_DESC
+  authKey_ASC
+  authKey_DESC
   name_ASC
   name_DESC
   gender_ASC
   gender_DESC
-  certKey_ASC
-  certKey_DESC
   joinedAt_ASC
   joinedAt_DESC
+  birthday_ASC
+  birthday_DESC
+  picUrl_ASC
+  picUrl_DESC
+  ageMin_ASC
+  ageMin_DESC
+  ageMax_ASC
+  ageMax_DESC
 }
 
 type UserPreviousValues {
   id: ID!
+  authType: String!
+  authKey: String!
   name: String!
   gender: String!
-  certKey: String!
   joinedAt: DateTime!
+  birthday: DateTime!
+  picUrl: String!
+  ageMin: Int!
+  ageMax: Int!
 }
 
 input UserScalarWhereInput {
@@ -531,6 +622,34 @@ input UserScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  authType: String
+  authType_not: String
+  authType_in: [String!]
+  authType_not_in: [String!]
+  authType_lt: String
+  authType_lte: String
+  authType_gt: String
+  authType_gte: String
+  authType_contains: String
+  authType_not_contains: String
+  authType_starts_with: String
+  authType_not_starts_with: String
+  authType_ends_with: String
+  authType_not_ends_with: String
+  authKey: String
+  authKey_not: String
+  authKey_in: [String!]
+  authKey_not_in: [String!]
+  authKey_lt: String
+  authKey_lte: String
+  authKey_gt: String
+  authKey_gte: String
+  authKey_contains: String
+  authKey_not_contains: String
+  authKey_starts_with: String
+  authKey_not_starts_with: String
+  authKey_ends_with: String
+  authKey_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -559,20 +678,6 @@ input UserScalarWhereInput {
   gender_not_starts_with: String
   gender_ends_with: String
   gender_not_ends_with: String
-  certKey: String
-  certKey_not: String
-  certKey_in: [String!]
-  certKey_not_in: [String!]
-  certKey_lt: String
-  certKey_lte: String
-  certKey_gt: String
-  certKey_gte: String
-  certKey_contains: String
-  certKey_not_contains: String
-  certKey_starts_with: String
-  certKey_not_starts_with: String
-  certKey_ends_with: String
-  certKey_not_ends_with: String
   joinedAt: DateTime
   joinedAt_not: DateTime
   joinedAt_in: [DateTime!]
@@ -581,6 +686,44 @@ input UserScalarWhereInput {
   joinedAt_lte: DateTime
   joinedAt_gt: DateTime
   joinedAt_gte: DateTime
+  birthday: DateTime
+  birthday_not: DateTime
+  birthday_in: [DateTime!]
+  birthday_not_in: [DateTime!]
+  birthday_lt: DateTime
+  birthday_lte: DateTime
+  birthday_gt: DateTime
+  birthday_gte: DateTime
+  picUrl: String
+  picUrl_not: String
+  picUrl_in: [String!]
+  picUrl_not_in: [String!]
+  picUrl_lt: String
+  picUrl_lte: String
+  picUrl_gt: String
+  picUrl_gte: String
+  picUrl_contains: String
+  picUrl_not_contains: String
+  picUrl_starts_with: String
+  picUrl_not_starts_with: String
+  picUrl_ends_with: String
+  picUrl_not_ends_with: String
+  ageMin: Int
+  ageMin_not: Int
+  ageMin_in: [Int!]
+  ageMin_not_in: [Int!]
+  ageMin_lt: Int
+  ageMin_lte: Int
+  ageMin_gt: Int
+  ageMin_gte: Int
+  ageMax: Int
+  ageMax_not: Int
+  ageMax_in: [Int!]
+  ageMax_not_in: [Int!]
+  ageMax_lt: Int
+  ageMax_lte: Int
+  ageMax_gt: Int
+  ageMax_gte: Int
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -605,27 +748,42 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
+  authType: String
+  authKey: String
   name: String
   gender: String
-  certKey: String
+  birthday: DateTime
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   createdMoim: MoimUpdateManyWithoutCreatorInput
   joinedMoim: MoimUpdateManyWithoutParticipantsInput
   blacklist: UserUpdateManyInput
 }
 
 input UserUpdateInput {
+  authType: String
+  authKey: String
   name: String
   gender: String
-  certKey: String
+  birthday: DateTime
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   createdMoim: MoimUpdateManyWithoutCreatorInput
   joinedMoim: MoimUpdateManyWithoutParticipantsInput
   blacklist: UserUpdateManyInput
 }
 
 input UserUpdateManyDataInput {
+  authType: String
+  authKey: String
   name: String
   gender: String
-  certKey: String
+  birthday: DateTime
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
 }
 
 input UserUpdateManyInput {
@@ -641,9 +799,14 @@ input UserUpdateManyInput {
 }
 
 input UserUpdateManyMutationInput {
+  authType: String
+  authKey: String
   name: String
   gender: String
-  certKey: String
+  birthday: DateTime
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
 }
 
 input UserUpdateManyWithoutJoinedMoimInput {
@@ -671,17 +834,27 @@ input UserUpdateOneRequiredWithoutCreatedMoimInput {
 }
 
 input UserUpdateWithoutCreatedMoimDataInput {
+  authType: String
+  authKey: String
   name: String
   gender: String
-  certKey: String
+  birthday: DateTime
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   joinedMoim: MoimUpdateManyWithoutParticipantsInput
   blacklist: UserUpdateManyInput
 }
 
 input UserUpdateWithoutJoinedMoimDataInput {
+  authType: String
+  authKey: String
   name: String
   gender: String
-  certKey: String
+  birthday: DateTime
+  picUrl: String
+  ageMin: Int
+  ageMax: Int
   createdMoim: MoimUpdateManyWithoutCreatorInput
   blacklist: UserUpdateManyInput
 }
@@ -728,6 +901,34 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  authType: String
+  authType_not: String
+  authType_in: [String!]
+  authType_not_in: [String!]
+  authType_lt: String
+  authType_lte: String
+  authType_gt: String
+  authType_gte: String
+  authType_contains: String
+  authType_not_contains: String
+  authType_starts_with: String
+  authType_not_starts_with: String
+  authType_ends_with: String
+  authType_not_ends_with: String
+  authKey: String
+  authKey_not: String
+  authKey_in: [String!]
+  authKey_not_in: [String!]
+  authKey_lt: String
+  authKey_lte: String
+  authKey_gt: String
+  authKey_gte: String
+  authKey_contains: String
+  authKey_not_contains: String
+  authKey_starts_with: String
+  authKey_not_starts_with: String
+  authKey_ends_with: String
+  authKey_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -756,20 +957,6 @@ input UserWhereInput {
   gender_not_starts_with: String
   gender_ends_with: String
   gender_not_ends_with: String
-  certKey: String
-  certKey_not: String
-  certKey_in: [String!]
-  certKey_not_in: [String!]
-  certKey_lt: String
-  certKey_lte: String
-  certKey_gt: String
-  certKey_gte: String
-  certKey_contains: String
-  certKey_not_contains: String
-  certKey_starts_with: String
-  certKey_not_starts_with: String
-  certKey_ends_with: String
-  certKey_not_ends_with: String
   joinedAt: DateTime
   joinedAt_not: DateTime
   joinedAt_in: [DateTime!]
@@ -778,6 +965,44 @@ input UserWhereInput {
   joinedAt_lte: DateTime
   joinedAt_gt: DateTime
   joinedAt_gte: DateTime
+  birthday: DateTime
+  birthday_not: DateTime
+  birthday_in: [DateTime!]
+  birthday_not_in: [DateTime!]
+  birthday_lt: DateTime
+  birthday_lte: DateTime
+  birthday_gt: DateTime
+  birthday_gte: DateTime
+  picUrl: String
+  picUrl_not: String
+  picUrl_in: [String!]
+  picUrl_not_in: [String!]
+  picUrl_lt: String
+  picUrl_lte: String
+  picUrl_gt: String
+  picUrl_gte: String
+  picUrl_contains: String
+  picUrl_not_contains: String
+  picUrl_starts_with: String
+  picUrl_not_starts_with: String
+  picUrl_ends_with: String
+  picUrl_not_ends_with: String
+  ageMin: Int
+  ageMin_not: Int
+  ageMin_in: [Int!]
+  ageMin_not_in: [Int!]
+  ageMin_lt: Int
+  ageMin_lte: Int
+  ageMin_gt: Int
+  ageMin_gte: Int
+  ageMax: Int
+  ageMax_not: Int
+  ageMax_in: [Int!]
+  ageMax_not_in: [Int!]
+  ageMax_lt: Int
+  ageMax_lte: Int
+  ageMax_gt: Int
+  ageMax_gte: Int
   createdMoim_every: MoimWhereInput
   createdMoim_some: MoimWhereInput
   createdMoim_none: MoimWhereInput
@@ -794,7 +1019,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  certKey: String
+  authKey: String
 }
 `
       }

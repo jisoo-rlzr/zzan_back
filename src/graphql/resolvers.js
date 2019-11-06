@@ -22,21 +22,27 @@ const resolvers = {
         // },
     },
     Mutation: {
-        signupUser: (parent, { certKey, name, gender }, context) => {
+        signupUser: (parent, { authType, authKey, name, gender, birthday, picUrl }, context) => {
+            picUrl = picUrl ? picUrl : ""
             return context.prisma.createUser({
-            certKey,
-            name,
-            gender
+                authType,
+                authKey,
+                name,
+                gender,
+                birthday,
+                picUrl
             })
         },
-        createMoim: (parent, { placeId, time, creatorId, maxEntry, description, gender }, context) => {
+        createMoim: (parent, { placeId, time, creatorId, maxEntry, description, ageMin, ageMax, gender }, context) => {
             return context.prisma.createMoim({
-            place: placeId,
-            description,
-            maxEntry,
-            time,
-            creator: { connect: { id: creatorId } },
-            gender
+                place: placeId,
+                description,
+                maxEntry,
+                time,
+                creator: { connect: { id: creatorId } },
+                ageMin,
+                ageMax,
+                gender
             })
         },
         // publish: (parent, { id }, context) => {

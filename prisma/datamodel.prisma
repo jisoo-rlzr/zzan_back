@@ -1,9 +1,14 @@
 type User {
   id: ID! @id
+  authType: String!
+  authKey: String! @unique
   name: String!
   gender: String!
-  certKey: String! @unique
   joinedAt: DateTime! @createdAt
+  birthday: DateTime!
+  picUrl: String! @default(value: "")
+  ageMin: Int! @default(value: 1)
+  ageMax: Int! @default(value: 100)
   createdMoim: [Moim] @relation(name: "MoimCreator", onDelete: CASCADE)
   joinedMoim: [Moim] @relation(name: "MoimJoined", onDelete: SET_NULL)
   blacklist: [User]
@@ -16,6 +21,8 @@ type Moim {
   maxEntry: Int! @default(value: 6)
   time: DateTime!
   creator: User! @relation(name: "MoimCreator", onDelete: SET_NULL)
-  participants: [User!] @relation(name: "MoimJoined", onDelete: SET_NULL)
+  ageMin: Int! @default(value: 1)
+  ageMax: Int! @default(value: 100)
   gender: String! @default(value: "A")
+  participants: [User!] @relation(name: "MoimJoined", onDelete: SET_NULL)
 }
