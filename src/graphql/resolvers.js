@@ -35,7 +35,7 @@ const resolvers = {
         },
         createMoim: (parent, { placeId, time, creatorId, maxEntry, description, ageMin, ageMax, gender }, context) => {
             return context.prisma.createMoim({
-                place: placeId,
+                place: { connect: { id: placeId } },
                 description,
                 maxEntry,
                 time,

@@ -16,7 +16,7 @@ type User {
 
 type Moim {
   id: ID! @id
-  place: String!
+  place: Place!
   description: String
   maxEntry: Int! @default(value: 6)
   time: DateTime!
@@ -25,4 +25,13 @@ type Moim {
   ageMax: Int! @default(value: 100)
   gender: String! @default(value: "A")
   participants: [User!] @relation(name: "MoimJoined", onDelete: SET_NULL)
+}
+
+type Place {
+  id: ID! @id
+  googleId: String! @unique
+  moimCount: Int! @default(value: 0)
+  likes: Int! @default(value: 0)
+  dislikes: Int! @default(value: 0)
+  creator: User
 }

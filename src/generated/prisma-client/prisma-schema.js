@@ -7,6 +7,10 @@ module.exports = {
   count: Int!
 }
 
+type AggregatePlace {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -21,7 +25,7 @@ scalar Long
 
 type Moim {
   id: ID!
-  place: String!
+  place: Place!
   description: String
   maxEntry: Int!
   time: DateTime!
@@ -40,7 +44,7 @@ type MoimConnection {
 
 input MoimCreateInput {
   id: ID
-  place: String!
+  place: PlaceCreateOneInput!
   description: String
   maxEntry: Int
   time: DateTime!
@@ -63,7 +67,7 @@ input MoimCreateManyWithoutParticipantsInput {
 
 input MoimCreateWithoutCreatorInput {
   id: ID
-  place: String!
+  place: PlaceCreateOneInput!
   description: String
   maxEntry: Int
   time: DateTime!
@@ -75,7 +79,7 @@ input MoimCreateWithoutCreatorInput {
 
 input MoimCreateWithoutParticipantsInput {
   id: ID
-  place: String!
+  place: PlaceCreateOneInput!
   description: String
   maxEntry: Int
   time: DateTime!
@@ -93,8 +97,6 @@ type MoimEdge {
 enum MoimOrderByInput {
   id_ASC
   id_DESC
-  place_ASC
-  place_DESC
   description_ASC
   description_DESC
   maxEntry_ASC
@@ -111,7 +113,6 @@ enum MoimOrderByInput {
 
 type MoimPreviousValues {
   id: ID!
-  place: String!
   description: String
   maxEntry: Int!
   time: DateTime!
@@ -135,20 +136,6 @@ input MoimScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  place: String
-  place_not: String
-  place_in: [String!]
-  place_not_in: [String!]
-  place_lt: String
-  place_lte: String
-  place_gt: String
-  place_gte: String
-  place_contains: String
-  place_not_contains: String
-  place_starts_with: String
-  place_not_starts_with: String
-  place_ends_with: String
-  place_not_ends_with: String
   description: String
   description_not: String
   description_in: [String!]
@@ -233,7 +220,7 @@ input MoimSubscriptionWhereInput {
 }
 
 input MoimUpdateInput {
-  place: String
+  place: PlaceUpdateOneRequiredInput
   description: String
   maxEntry: Int
   time: DateTime
@@ -245,7 +232,6 @@ input MoimUpdateInput {
 }
 
 input MoimUpdateManyDataInput {
-  place: String
   description: String
   maxEntry: Int
   time: DateTime
@@ -255,7 +241,6 @@ input MoimUpdateManyDataInput {
 }
 
 input MoimUpdateManyMutationInput {
-  place: String
   description: String
   maxEntry: Int
   time: DateTime
@@ -294,7 +279,7 @@ input MoimUpdateManyWithWhereNestedInput {
 }
 
 input MoimUpdateWithoutCreatorDataInput {
-  place: String
+  place: PlaceUpdateOneRequiredInput
   description: String
   maxEntry: Int
   time: DateTime
@@ -305,7 +290,7 @@ input MoimUpdateWithoutCreatorDataInput {
 }
 
 input MoimUpdateWithoutParticipantsDataInput {
-  place: String
+  place: PlaceUpdateOneRequiredInput
   description: String
   maxEntry: Int
   time: DateTime
@@ -352,20 +337,7 @@ input MoimWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  place: String
-  place_not: String
-  place_in: [String!]
-  place_not_in: [String!]
-  place_lt: String
-  place_lte: String
-  place_gt: String
-  place_gte: String
-  place_contains: String
-  place_not_contains: String
-  place_starts_with: String
-  place_not_starts_with: String
-  place_ends_with: String
-  place_not_ends_with: String
+  place: PlaceWhereInput
   description: String
   description_not: String
   description_in: [String!]
@@ -446,6 +418,12 @@ type Mutation {
   upsertMoim(where: MoimWhereUniqueInput!, create: MoimCreateInput!, update: MoimUpdateInput!): Moim!
   deleteMoim(where: MoimWhereUniqueInput!): Moim
   deleteManyMoims(where: MoimWhereInput): BatchPayload!
+  createPlace(data: PlaceCreateInput!): Place!
+  updatePlace(data: PlaceUpdateInput!, where: PlaceWhereUniqueInput!): Place
+  updateManyPlaces(data: PlaceUpdateManyMutationInput!, where: PlaceWhereInput): BatchPayload!
+  upsertPlace(where: PlaceWhereUniqueInput!, create: PlaceCreateInput!, update: PlaceUpdateInput!): Place!
+  deletePlace(where: PlaceWhereUniqueInput!): Place
+  deleteManyPlaces(where: PlaceWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -471,10 +449,185 @@ type PageInfo {
   endCursor: String
 }
 
+type Place {
+  id: ID!
+  googleId: String!
+  moimCount: Int!
+  likes: Int!
+  dislikes: Int!
+  creator: User
+}
+
+type PlaceConnection {
+  pageInfo: PageInfo!
+  edges: [PlaceEdge]!
+  aggregate: AggregatePlace!
+}
+
+input PlaceCreateInput {
+  id: ID
+  googleId: String!
+  moimCount: Int
+  likes: Int
+  dislikes: Int
+  creator: UserCreateOneInput
+}
+
+input PlaceCreateOneInput {
+  create: PlaceCreateInput
+  connect: PlaceWhereUniqueInput
+}
+
+type PlaceEdge {
+  node: Place!
+  cursor: String!
+}
+
+enum PlaceOrderByInput {
+  id_ASC
+  id_DESC
+  googleId_ASC
+  googleId_DESC
+  moimCount_ASC
+  moimCount_DESC
+  likes_ASC
+  likes_DESC
+  dislikes_ASC
+  dislikes_DESC
+}
+
+type PlacePreviousValues {
+  id: ID!
+  googleId: String!
+  moimCount: Int!
+  likes: Int!
+  dislikes: Int!
+}
+
+type PlaceSubscriptionPayload {
+  mutation: MutationType!
+  node: Place
+  updatedFields: [String!]
+  previousValues: PlacePreviousValues
+}
+
+input PlaceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PlaceWhereInput
+  AND: [PlaceSubscriptionWhereInput!]
+  OR: [PlaceSubscriptionWhereInput!]
+  NOT: [PlaceSubscriptionWhereInput!]
+}
+
+input PlaceUpdateDataInput {
+  googleId: String
+  moimCount: Int
+  likes: Int
+  dislikes: Int
+  creator: UserUpdateOneInput
+}
+
+input PlaceUpdateInput {
+  googleId: String
+  moimCount: Int
+  likes: Int
+  dislikes: Int
+  creator: UserUpdateOneInput
+}
+
+input PlaceUpdateManyMutationInput {
+  googleId: String
+  moimCount: Int
+  likes: Int
+  dislikes: Int
+}
+
+input PlaceUpdateOneRequiredInput {
+  create: PlaceCreateInput
+  update: PlaceUpdateDataInput
+  upsert: PlaceUpsertNestedInput
+  connect: PlaceWhereUniqueInput
+}
+
+input PlaceUpsertNestedInput {
+  update: PlaceUpdateDataInput!
+  create: PlaceCreateInput!
+}
+
+input PlaceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  googleId: String
+  googleId_not: String
+  googleId_in: [String!]
+  googleId_not_in: [String!]
+  googleId_lt: String
+  googleId_lte: String
+  googleId_gt: String
+  googleId_gte: String
+  googleId_contains: String
+  googleId_not_contains: String
+  googleId_starts_with: String
+  googleId_not_starts_with: String
+  googleId_ends_with: String
+  googleId_not_ends_with: String
+  moimCount: Int
+  moimCount_not: Int
+  moimCount_in: [Int!]
+  moimCount_not_in: [Int!]
+  moimCount_lt: Int
+  moimCount_lte: Int
+  moimCount_gt: Int
+  moimCount_gte: Int
+  likes: Int
+  likes_not: Int
+  likes_in: [Int!]
+  likes_not_in: [Int!]
+  likes_lt: Int
+  likes_lte: Int
+  likes_gt: Int
+  likes_gte: Int
+  dislikes: Int
+  dislikes_not: Int
+  dislikes_in: [Int!]
+  dislikes_not_in: [Int!]
+  dislikes_lt: Int
+  dislikes_lte: Int
+  dislikes_gt: Int
+  dislikes_gte: Int
+  creator: UserWhereInput
+  AND: [PlaceWhereInput!]
+  OR: [PlaceWhereInput!]
+  NOT: [PlaceWhereInput!]
+}
+
+input PlaceWhereUniqueInput {
+  id: ID
+  googleId: String
+}
+
 type Query {
   moim(where: MoimWhereUniqueInput!): Moim
   moims(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Moim]!
   moimsConnection(where: MoimWhereInput, orderBy: MoimOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MoimConnection!
+  place(where: PlaceWhereUniqueInput!): Place
+  places(where: PlaceWhereInput, orderBy: PlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Place]!
+  placesConnection(where: PlaceWhereInput, orderBy: PlaceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlaceConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -483,6 +636,7 @@ type Query {
 
 type Subscription {
   moim(where: MoimSubscriptionWhereInput): MoimSubscriptionPayload
+  place(where: PlaceSubscriptionWhereInput): PlaceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -531,6 +685,11 @@ input UserCreateManyInput {
 input UserCreateManyWithoutJoinedMoimInput {
   create: [UserCreateWithoutJoinedMoimInput!]
   connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCreatedMoimInput {
@@ -826,6 +985,15 @@ input UserUpdateManyWithWhereNestedInput {
   data: UserUpdateManyDataInput!
 }
 
+input UserUpdateOneInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneRequiredWithoutCreatedMoimInput {
   create: UserCreateWithoutCreatedMoimInput
   update: UserUpdateWithoutCreatedMoimDataInput
@@ -867,6 +1035,11 @@ input UserUpdateWithWhereUniqueNestedInput {
 input UserUpdateWithWhereUniqueWithoutJoinedMoimInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutJoinedMoimDataInput!
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutCreatedMoimInput {

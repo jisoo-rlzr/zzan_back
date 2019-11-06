@@ -31,7 +31,7 @@ type User {
 
 type Moim {
   id: ID!
-  place: String!
+  place: Place!
   description: String
   maxEntry: Int!
   time: DateTime!
@@ -40,6 +40,15 @@ type Moim {
   ageMax: Int!
   participants: [User!]!
   gender: String!
+}
+
+type Place {
+  id: ID!
+  googleId: String!
+  moimCount: Int!
+  likes: Int!
+  dislikes: Int!
+  creator: User
 }
 
 # type Post {
