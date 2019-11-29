@@ -193,7 +193,9 @@ export type MoimOrderByInput =
   | "ageMax_ASC"
   | "ageMax_DESC"
   | "gender_ASC"
-  | "gender_DESC";
+  | "gender_DESC"
+  | "imageUrl_ASC"
+  | "imageUrl_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -366,6 +368,7 @@ export interface MoimCreateWithoutParticipantsInput {
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -433,6 +436,7 @@ export interface MoimUpdateInput {
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface PlaceUpdateInput {
@@ -457,6 +461,7 @@ export interface MoimUpdateManyMutationInput {
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface PlaceUpdateDataInput {
@@ -481,6 +486,7 @@ export interface MoimUpdateWithoutParticipantsDataInput {
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  imageUrl?: Maybe<String>;
 }
 
 export type UserWhereUniqueInput = AtLeastOne<{
@@ -561,6 +567,7 @@ export interface MoimUpdateWithoutCreatorDataInput {
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
   participants?: Maybe<UserUpdateManyWithoutJoinedMoimInput>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface MoimCreateManyWithoutCreatorInput {
@@ -954,6 +961,7 @@ export interface MoimCreateWithoutCreatorInput {
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
   participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface UserUpdateManyDataInput {
@@ -996,6 +1004,7 @@ export interface MoimUpdateManyDataInput {
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface MoimUpdateManyWithWhereNestedInput {
@@ -1078,6 +1087,20 @@ export interface MoimScalarWhereInput {
   gender_not_starts_with?: Maybe<String>;
   gender_ends_with?: Maybe<String>;
   gender_not_ends_with?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
   AND?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
   OR?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
   NOT?: Maybe<MoimScalarWhereInput[] | MoimScalarWhereInput>;
@@ -1181,6 +1204,20 @@ export interface MoimWhereInput {
   participants_every?: Maybe<UserWhereInput>;
   participants_some?: Maybe<UserWhereInput>;
   participants_none?: Maybe<UserWhereInput>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
   AND?: Maybe<MoimWhereInput[] | MoimWhereInput>;
   OR?: Maybe<MoimWhereInput[] | MoimWhereInput>;
   NOT?: Maybe<MoimWhereInput[] | MoimWhereInput>;
@@ -1212,6 +1249,7 @@ export interface MoimCreateInput {
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
   participants?: Maybe<UserCreateManyWithoutJoinedMoimInput>;
+  imageUrl?: Maybe<String>;
 }
 
 export interface NodeNode {
@@ -1601,6 +1639,7 @@ export interface MoimPreviousValues {
   ageMin: Int;
   ageMax: Int;
   gender: String;
+  imageUrl?: String;
 }
 
 export interface MoimPreviousValuesPromise
@@ -1613,6 +1652,7 @@ export interface MoimPreviousValuesPromise
   ageMin: () => Promise<Int>;
   ageMax: () => Promise<Int>;
   gender: () => Promise<String>;
+  imageUrl: () => Promise<String>;
 }
 
 export interface MoimPreviousValuesSubscription
@@ -1625,6 +1665,7 @@ export interface MoimPreviousValuesSubscription
   ageMin: () => Promise<AsyncIterator<Int>>;
   ageMax: () => Promise<AsyncIterator<Int>>;
   gender: () => Promise<AsyncIterator<String>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
 }
 
 export interface MoimSubscriptionPayload {
@@ -1660,6 +1701,7 @@ export interface Moim {
   ageMin: Int;
   ageMax: Int;
   gender: String;
+  imageUrl?: String;
 }
 
 export interface MoimPromise extends Promise<Moim>, Fragmentable {
@@ -1681,6 +1723,7 @@ export interface MoimPromise extends Promise<Moim>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  imageUrl: () => Promise<String>;
 }
 
 export interface MoimSubscription
@@ -1704,6 +1747,7 @@ export interface MoimSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  imageUrl: () => Promise<AsyncIterator<String>>;
 }
 
 export interface MoimNullablePromise
@@ -1727,6 +1771,7 @@ export interface MoimNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  imageUrl: () => Promise<String>;
 }
 
 export interface MoimConnection {

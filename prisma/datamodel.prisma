@@ -25,6 +25,7 @@ type Moim {
   ageMax: Int! @default(value: 100)
   gender: String! @default(value: "A")
   participants: [User!] @relation(name: "MoimJoined", onDelete: SET_NULL)
+  imageUrl: String
 }
 
 type Place {

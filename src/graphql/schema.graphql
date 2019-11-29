@@ -39,6 +39,7 @@ type Moim {
   ageMax: Int!
   participants: [User!]!
   gender: String!
+  imageUrl: String
 }
 
 type Place {

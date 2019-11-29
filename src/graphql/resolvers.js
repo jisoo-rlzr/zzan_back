@@ -33,7 +33,7 @@ const resolvers = {
                 picUrl
             })
         },
-        createMoim: (parent, { placeId, time, creatorId, maxEntry, description, ageMin, ageMax, gender }, context) => {
+        createMoim: (parent, { placeId, time, creatorId, maxEntry, description, ageMin, ageMax, gender, imageUrl }, context) => {
             return context.prisma.createMoim({
                 place: { connect: { id: placeId } },
                 description,
@@ -42,7 +42,8 @@ const resolvers = {
                 creator: { connect: { id: creatorId } },
                 ageMin,
                 ageMax,
-                gender
+                gender,
+                imageUrl
             })
         },
         // publish: (parent, { id }, context) => {

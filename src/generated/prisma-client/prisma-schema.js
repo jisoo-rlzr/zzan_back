@@ -34,6 +34,7 @@ type Moim {
   ageMax: Int!
   gender: String!
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  imageUrl: String
 }
 
 type MoimConnection {
@@ -53,6 +54,7 @@ input MoimCreateInput {
   ageMax: Int
   gender: String
   participants: UserCreateManyWithoutJoinedMoimInput
+  imageUrl: String
 }
 
 input MoimCreateManyWithoutCreatorInput {
@@ -75,6 +77,7 @@ input MoimCreateWithoutCreatorInput {
   ageMax: Int
   gender: String
   participants: UserCreateManyWithoutJoinedMoimInput
+  imageUrl: String
 }
 
 input MoimCreateWithoutParticipantsInput {
@@ -87,6 +90,7 @@ input MoimCreateWithoutParticipantsInput {
   ageMin: Int
   ageMax: Int
   gender: String
+  imageUrl: String
 }
 
 type MoimEdge {
@@ -109,6 +113,8 @@ enum MoimOrderByInput {
   ageMax_DESC
   gender_ASC
   gender_DESC
+  imageUrl_ASC
+  imageUrl_DESC
 }
 
 type MoimPreviousValues {
@@ -119,6 +125,7 @@ type MoimPreviousValues {
   ageMin: Int!
   ageMax: Int!
   gender: String!
+  imageUrl: String
 }
 
 input MoimScalarWhereInput {
@@ -196,6 +203,20 @@ input MoimScalarWhereInput {
   gender_not_starts_with: String
   gender_ends_with: String
   gender_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
   AND: [MoimScalarWhereInput!]
   OR: [MoimScalarWhereInput!]
   NOT: [MoimScalarWhereInput!]
@@ -229,6 +250,7 @@ input MoimUpdateInput {
   ageMax: Int
   gender: String
   participants: UserUpdateManyWithoutJoinedMoimInput
+  imageUrl: String
 }
 
 input MoimUpdateManyDataInput {
@@ -238,6 +260,7 @@ input MoimUpdateManyDataInput {
   ageMin: Int
   ageMax: Int
   gender: String
+  imageUrl: String
 }
 
 input MoimUpdateManyMutationInput {
@@ -247,6 +270,7 @@ input MoimUpdateManyMutationInput {
   ageMin: Int
   ageMax: Int
   gender: String
+  imageUrl: String
 }
 
 input MoimUpdateManyWithoutCreatorInput {
@@ -287,6 +311,7 @@ input MoimUpdateWithoutCreatorDataInput {
   ageMax: Int
   gender: String
   participants: UserUpdateManyWithoutJoinedMoimInput
+  imageUrl: String
 }
 
 input MoimUpdateWithoutParticipantsDataInput {
@@ -298,6 +323,7 @@ input MoimUpdateWithoutParticipantsDataInput {
   ageMin: Int
   ageMax: Int
   gender: String
+  imageUrl: String
 }
 
 input MoimUpdateWithWhereUniqueWithoutCreatorInput {
@@ -402,6 +428,20 @@ input MoimWhereInput {
   participants_every: UserWhereInput
   participants_some: UserWhereInput
   participants_none: UserWhereInput
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
   AND: [MoimWhereInput!]
   OR: [MoimWhereInput!]
   NOT: [MoimWhereInput!]
