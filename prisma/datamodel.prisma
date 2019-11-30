@@ -16,11 +16,11 @@ type User {
 
 type Moim {
   id: ID! @id
-  place: Place!
+  place: Place @relation(link: INLINE)
   description: String
   maxEntry: Int! @default(value: 6)
   time: DateTime!
-  creator: User! @relation(name: "MoimCreator", onDelete: SET_NULL)
+  creator: User @relation(name: "MoimCreator", onDelete: SET_NULL)
   ageMin: Int! @default(value: 1)
   ageMax: Int! @default(value: 100)
   gender: String! @default(value: "A")
@@ -34,5 +34,5 @@ type Place {
   moimCount: Int! @default(value: 0)
   likes: Int! @default(value: 0)
   dislikes: Int! @default(value: 0)
-  creator: User
+  creator: User @relation(link: INLINE)
 }

@@ -360,11 +360,11 @@ export interface PlaceWhereInput {
 
 export interface MoimCreateWithoutParticipantsInput {
   id?: Maybe<ID_Input>;
-  place: PlaceCreateOneInput;
+  place?: Maybe<PlaceCreateOneInput>;
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time: DateTimeInput;
-  creator: UserCreateOneWithoutCreatedMoimInput;
+  creator?: Maybe<UserCreateOneWithoutCreatedMoimInput>;
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
@@ -427,11 +427,11 @@ export interface UserUpdateInput {
 }
 
 export interface MoimUpdateInput {
-  place?: Maybe<PlaceUpdateOneRequiredInput>;
+  place?: Maybe<PlaceUpdateOneInput>;
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
-  creator?: Maybe<UserUpdateOneRequiredWithoutCreatedMoimInput>;
+  creator?: Maybe<UserUpdateOneWithoutCreatedMoimInput>;
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
@@ -447,10 +447,12 @@ export interface PlaceUpdateInput {
   creator?: Maybe<UserUpdateOneInput>;
 }
 
-export interface PlaceUpdateOneRequiredInput {
+export interface PlaceUpdateOneInput {
   create?: Maybe<PlaceCreateInput>;
   update?: Maybe<PlaceUpdateDataInput>;
   upsert?: Maybe<PlaceUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
   connect?: Maybe<PlaceWhereUniqueInput>;
 }
 
@@ -478,11 +480,11 @@ export interface UserUpsertNestedInput {
 }
 
 export interface MoimUpdateWithoutParticipantsDataInput {
-  place?: Maybe<PlaceUpdateOneRequiredInput>;
+  place?: Maybe<PlaceUpdateOneInput>;
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
-  creator?: Maybe<UserUpdateOneRequiredWithoutCreatedMoimInput>;
+  creator?: Maybe<UserUpdateOneWithoutCreatedMoimInput>;
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;
@@ -559,7 +561,7 @@ export interface UserCreateOneInput {
 }
 
 export interface MoimUpdateWithoutCreatorDataInput {
-  place?: Maybe<PlaceUpdateOneRequiredInput>;
+  place?: Maybe<PlaceUpdateOneInput>;
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time?: Maybe<DateTimeInput>;
@@ -808,10 +810,12 @@ export interface UserUpsertWithWhereUniqueNestedInput {
   create: UserCreateInput;
 }
 
-export interface UserUpdateOneRequiredWithoutCreatedMoimInput {
+export interface UserUpdateOneWithoutCreatedMoimInput {
   create?: Maybe<UserCreateWithoutCreatedMoimInput>;
   update?: Maybe<UserUpdateWithoutCreatedMoimDataInput>;
   upsert?: Maybe<UserUpsertWithoutCreatedMoimInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
@@ -953,7 +957,7 @@ export interface UserUpdateManyWithWhereNestedInput {
 
 export interface MoimCreateWithoutCreatorInput {
   id?: Maybe<ID_Input>;
-  place: PlaceCreateOneInput;
+  place?: Maybe<PlaceCreateOneInput>;
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time: DateTimeInput;
@@ -1240,11 +1244,11 @@ export interface UserCreateInput {
 
 export interface MoimCreateInput {
   id?: Maybe<ID_Input>;
-  place: PlaceCreateOneInput;
+  place?: Maybe<PlaceCreateOneInput>;
   description?: Maybe<String>;
   maxEntry?: Maybe<Int>;
   time: DateTimeInput;
-  creator: UserCreateOneWithoutCreatedMoimInput;
+  creator?: Maybe<UserCreateOneWithoutCreatedMoimInput>;
   ageMin?: Maybe<Int>;
   ageMax?: Maybe<Int>;
   gender?: Maybe<String>;

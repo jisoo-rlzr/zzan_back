@@ -25,11 +25,11 @@ scalar Long
 
 type Moim {
   id: ID!
-  place: Place!
+  place: Place
   description: String
   maxEntry: Int!
   time: DateTime!
-  creator: User!
+  creator: User
   ageMin: Int!
   ageMax: Int!
   gender: String!
@@ -45,11 +45,11 @@ type MoimConnection {
 
 input MoimCreateInput {
   id: ID
-  place: PlaceCreateOneInput!
+  place: PlaceCreateOneInput
   description: String
   maxEntry: Int
   time: DateTime!
-  creator: UserCreateOneWithoutCreatedMoimInput!
+  creator: UserCreateOneWithoutCreatedMoimInput
   ageMin: Int
   ageMax: Int
   gender: String
@@ -69,7 +69,7 @@ input MoimCreateManyWithoutParticipantsInput {
 
 input MoimCreateWithoutCreatorInput {
   id: ID
-  place: PlaceCreateOneInput!
+  place: PlaceCreateOneInput
   description: String
   maxEntry: Int
   time: DateTime!
@@ -82,11 +82,11 @@ input MoimCreateWithoutCreatorInput {
 
 input MoimCreateWithoutParticipantsInput {
   id: ID
-  place: PlaceCreateOneInput!
+  place: PlaceCreateOneInput
   description: String
   maxEntry: Int
   time: DateTime!
-  creator: UserCreateOneWithoutCreatedMoimInput!
+  creator: UserCreateOneWithoutCreatedMoimInput
   ageMin: Int
   ageMax: Int
   gender: String
@@ -241,11 +241,11 @@ input MoimSubscriptionWhereInput {
 }
 
 input MoimUpdateInput {
-  place: PlaceUpdateOneRequiredInput
+  place: PlaceUpdateOneInput
   description: String
   maxEntry: Int
   time: DateTime
-  creator: UserUpdateOneRequiredWithoutCreatedMoimInput
+  creator: UserUpdateOneWithoutCreatedMoimInput
   ageMin: Int
   ageMax: Int
   gender: String
@@ -303,7 +303,7 @@ input MoimUpdateManyWithWhereNestedInput {
 }
 
 input MoimUpdateWithoutCreatorDataInput {
-  place: PlaceUpdateOneRequiredInput
+  place: PlaceUpdateOneInput
   description: String
   maxEntry: Int
   time: DateTime
@@ -315,11 +315,11 @@ input MoimUpdateWithoutCreatorDataInput {
 }
 
 input MoimUpdateWithoutParticipantsDataInput {
-  place: PlaceUpdateOneRequiredInput
+  place: PlaceUpdateOneInput
   description: String
   maxEntry: Int
   time: DateTime
-  creator: UserUpdateOneRequiredWithoutCreatedMoimInput
+  creator: UserUpdateOneWithoutCreatedMoimInput
   ageMin: Int
   ageMax: Int
   gender: String
@@ -585,10 +585,12 @@ input PlaceUpdateManyMutationInput {
   dislikes: Int
 }
 
-input PlaceUpdateOneRequiredInput {
+input PlaceUpdateOneInput {
   create: PlaceCreateInput
   update: PlaceUpdateDataInput
   upsert: PlaceUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
   connect: PlaceWhereUniqueInput
 }
 
@@ -1034,10 +1036,12 @@ input UserUpdateOneInput {
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateOneRequiredWithoutCreatedMoimInput {
+input UserUpdateOneWithoutCreatedMoimInput {
   create: UserCreateWithoutCreatedMoimInput
   update: UserUpdateWithoutCreatedMoimDataInput
   upsert: UserUpsertWithoutCreatedMoimInput
+  delete: Boolean
+  disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 
