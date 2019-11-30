@@ -1,3 +1,5 @@
+// import { Moim, User, Place } from "./schema.graphql";
+
 const resolvers = {
     Query: {
         feed: (parent, args, context) => {
@@ -17,9 +19,9 @@ const resolvers = {
         //     },
         //     })
         // },
-        // post: (parent, { id }, context) => {
-        //     return context.prisma.post({ id })
-        // },
+        moim: (parent, { id }, context) => {
+            return context.prisma.moim({ id })
+        },
     },
     Mutation: {
         signupUser: (parent, { authType, authKey, name, gender, birthday, picUrl }, context) => {
@@ -55,17 +57,31 @@ const resolvers = {
         deleteMoim: (parent, { id }, context) => {
             return context.prisma.deleteMoim({ id })
         },
+    },
+    Moim: {
+        place: (parent, _, context) => {
+            return context.prisma.moim({ id: parent.id }).place()
         },
-    // Post: {
-    //     author: ({ id }, args, context) => {
-    //         return context.prisma.post({ id }).author()
-    //     },
-    // },
-    // User: {
-    //     posts: ({ id }, args, context) => {
-    //         return context.prisma.user({ id }).posts()
-    //     },
-    // },
+        creator: (parent, _, context) => {
+            return context.prisma.moim({ id: parent.id }).creator()
+        },
+    },
+    Place: {
+        creator: (parent, _, context) => {
+            return context.prisma.moim({ id: parent.id }).creator()
+        },
+    },
+    User: {
+        createdMoim: (parent, _, context) => {
+            return context.prisma.user({ id: parent.id }).createdMoim()
+        },
+        joinedMoim: (parent, _, context) => {
+            return context.prisma.user({ id: parent.id }).joinedMoim()
+        },
+        blacklist: (parent, _, context) => {
+            return context.prisma.user({ id: parent.id }).blacklist()
+        }
+    },
 }
 
 export default resolvers
