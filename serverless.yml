@@ -1,0 +1,21 @@
+org: alsuepsm
+app: apollo-lambda-app
+# serverless.yml
+
+service: apollo-lambda
+provider:
+  name: aws
+  runtime: nodejs8.10
+functions:
+  graphql:
+    # this is formatted as <FILENAME>.<HANDLER>
+    handler: src/index.graphqlHandler
+    events:
+    - http:
+        path: src/index
+        method: post
+        cors: true
+    - http:
+        path: src/index
+        method: get
+        cors: true
