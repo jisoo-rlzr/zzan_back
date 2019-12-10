@@ -3,7 +3,7 @@
 const resolvers = {
     Query: {
         feed: (parent, args, context) => {
-            return context.prisma.moims()
+            return context.prisma.moims();
         },
         // filterPosts: (parent, { searchString }, context) => {
         //     return context.prisma.posts({
@@ -20,12 +20,12 @@ const resolvers = {
         //     })
         // },
         moim: (parent, { id }, context) => {
-            return context.prisma.moim({ id })
+            return context.prisma.moim({ id });
         },
     },
     Mutation: {
         signupUser: (parent, { authType, authKey, name, gender, birthday, picUrl }, context) => {
-            picUrl = picUrl ? picUrl : ""
+            picUrl = picUrl;
             return context.prisma.createUser({
                 authType,
                 authKey,
@@ -33,7 +33,7 @@ const resolvers = {
                 gender,
                 birthday,
                 picUrl
-            })
+            });
         },
         createMoim: (parent, { placeId, time, creatorId, maxEntry, description, ageMin, ageMax, gender, imageUrl }, context) => {
             return context.prisma.createMoim({
@@ -46,7 +46,7 @@ const resolvers = {
                 ageMax,
                 gender,
                 imageUrl
-            })
+            });
         },
         // publish: (parent, { id }, context) => {
         //     return context.prisma.updateMoim({
@@ -55,33 +55,33 @@ const resolvers = {
         //     })
         // },
         deleteMoim: (parent, { id }, context) => {
-            return context.prisma.deleteMoim({ id })
+            return context.prisma.deleteMoim({ id });
         },
     },
     Moim: {
         place: (parent, _, context) => {
-            return context.prisma.moim({ id: parent.id }).place()
+            return context.prisma.moim({ id: parent.id }).place();
         },
         creator: (parent, _, context) => {
-            return context.prisma.moim({ id: parent.id }).creator()
+            return context.prisma.moim({ id: parent.id }).creator();
         },
     },
     Place: {
         creator: (parent, _, context) => {
-            return context.prisma.moim({ id: parent.id }).creator()
+            return context.prisma.moim({ id: parent.id }).creator();
         },
     },
     User: {
         createdMoim: (parent, _, context) => {
-            return context.prisma.user({ id: parent.id }).createdMoim()
+            return context.prisma.user({ id: parent.id }).createdMoim();
         },
         joinedMoim: (parent, _, context) => {
-            return context.prisma.user({ id: parent.id }).joinedMoim()
+            return context.prisma.user({ id: parent.id }).joinedMoim();
         },
         blacklist: (parent, _, context) => {
-            return context.prisma.user({ id: parent.id }).blacklist()
+            return context.prisma.user({ id: parent.id }).blacklist();
         }
     },
-}
+};
 
-export default resolvers
+export default resolvers;

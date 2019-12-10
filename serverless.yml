@@ -2,7 +2,15 @@ org: alsuepsm
 app: apollo-lambda-app
 # serverless.yml
 
-service: apollo-lambda
+service: zzan-api
+
+# 우리가 사용할 함수에 최적화된 패키지를 생성합니다
+package:
+  indivitually: true
+
+plugins:
+  - serverless-bundle # 우리의 함수를 Webpack으로 패키징합니다
+
 provider:
   name: aws
   runtime: nodejs8.10
