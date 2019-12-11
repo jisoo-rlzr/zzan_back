@@ -19,7 +19,6 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-node": "^0.0.1-security",
-    
     "serverless-bundle": "^1.2.5"
   }
 }
