@@ -1,5 +1,5 @@
 // import { GraphQLServer } from "graphql-yoga"
-import { ApolloServer, gql } from "apollo-server-lambda";
+import { ApolloServer } from "apollo-server-lambda";
 import { prisma } from "./generated/prisma-client";
 import resolvers from "./graphql/resolvers";
 
