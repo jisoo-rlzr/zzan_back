@@ -1,6 +1,6 @@
 // import { Moim, User, Place } from "./schema.graphql";
 
-const resolvers = {
+module.exports = {
     Query: {
         feed: (parent, args, context) => {
             return context.prisma.moims();
@@ -83,5 +83,3 @@ const resolvers = {
         }
     },
 };
-
-export default resolvers;

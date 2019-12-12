@@ -1,7 +1,7 @@
 // "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-import { makePrismaClientClass } from "prisma-client-lib";
-import { typeDefs } from "./prisma-schema";
+const { makePrismaClientClass } = require("prisma-client-lib");
+const { typeDefs } = require("./prisma-schema");
 
 var models = [
   {
@@ -17,9 +17,9 @@ var models = [
     embedded: false
   }
 ];
-export const Prisma = makePrismaClientClass({
+const Prisma = makePrismaClientClass({
   typeDefs,
   models,
   endpoint: `http://zzan-LoadB-158O00A1R1WZH-761696145.us-east-2.elb.amazonaws.com`
 });
-export const prisma = new Prisma();
+exports.prisma = new Prisma();

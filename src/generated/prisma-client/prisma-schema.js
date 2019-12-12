@@ -1,4 +1,4 @@
-export const typeDefs =
+exports.typeDefs =
 // Please don't change this file manually but run `prisma generate` to update it.
 // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 /* GraphQL */ `type AggregateMoim {

@@ -8,11 +8,12 @@ service: zzan-api
 package:
   indivitually: true
 
-plugins:
-  - serverless-bundle # 우리의 함수를 Webpack으로 패키징합니다
+# plugins:
+#   - serverless-bundle # 우리의 함수를 Webpack으로 패키징합니다
 
 provider:
   name: aws
+  region: us-east-2
   runtime: nodejs8.10
 functions:
   graphql:
@@ -20,10 +21,10 @@ functions:
     handler: src/index.graphqlHandler
     events:
     - http:
-        path: src/index
+        path: /
         method: post
         cors: true
     - http:
-        path: src/index
+        path: /
         method: get
         cors: true
