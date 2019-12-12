@@ -191,7 +191,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/zzan-api/dev/1576030942127-2019-12-11T02:22:22.127Z/zzan-api.zip"
+          "S3Key": "serverless/zzan-api/dev/1576142268388-2019-12-12T09:17:48.388Z/zzan-api.zip"
         },
         "FunctionName": "zzan-api-dev-graphql",
         "Handler": "s_graphql.handler",
@@ -210,14 +210,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GraphqlLambdaVersionhu597NfZWVfauiGKT64g2g00rE5s6hpih6MTFXs1RU": {
+    "GraphqlLambdaVersionKnS1RPNphi4Y2F0ke5fBdGnbd6UGDu20xeySrJitEg8": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GraphqlLambdaFunction"
         },
-        "CodeSha256": "oGR3H7+UbGw7oxvSfQFGXqQ5/9CZHzbYYmbk0PyIXpc="
+        "CodeSha256": "3I5zaYaAxbdzBPRk3CPkqYm6VTIV6IqoOCwOvOfrYQ4="
       }
     },
     "ApiGatewayRestApi": {
@@ -389,7 +389,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1576030931327": {
+    "ApiGatewayDeployment1576142244198": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -534,7 +534,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/zzan-api/dev/1576030942127-2019-12-11T02:22:22.127Z/custom-resources.zip"
+          "S3Key": "serverless/zzan-api/dev/1576142268388-2019-12-12T09:17:48.388Z/custom-resources.zip"
         },
         "FunctionName": "zzan-api-dev-custom-resource-apigw-cw-role",
         "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -555,7 +555,7 @@
     "CloudWatchLogsSubscriptionFilterGraphqlLogGroup": {
       "Type": "AWS::Logs::SubscriptionFilter",
       "Properties": {
-        "DestinationArn": "arn:aws:logs:us-east-1:802587217904:destination:76TtzZNskkMZYDfxrv#ffpGz9WGl5vNvnx7cB#zzan-api#dev",
+        "DestinationArn": "arn:aws:logs:us-east-2:802587217904:destination:76TtzZNskkMZYDfxrv#ffpGz9WGl5vNvnx7cB#zzan-api#dev",
         "FilterPattern": "?\"REPORT RequestId: \" ?\"SERVERLESS_ENTERPRISE\"",
         "LogGroupName": {
           "Ref": "GraphqlLogGroup"
@@ -565,7 +565,7 @@
     "CloudWatchLogsSubscriptionFilterApiGatewayLogGroup": {
       "Type": "AWS::Logs::SubscriptionFilter",
       "Properties": {
-        "DestinationArn": "arn:aws:logs:us-east-1:802587217904:destination:76TtzZNskkMZYDfxrv#ffpGz9WGl5vNvnx7cB#zzan-api#dev",
+        "DestinationArn": "arn:aws:logs:us-east-2:802587217904:destination:76TtzZNskkMZYDfxrv#ffpGz9WGl5vNvnx7cB#zzan-api#dev",
         "FilterPattern": "\"SLS_ACCESS_LOG\"",
         "LogGroupName": {
           "Ref": "ApiGatewayLogGroup"
@@ -590,7 +590,7 @@
     "GraphqlLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GraphqlLambdaVersionhu597NfZWVfauiGKT64g2g00rE5s6hpih6MTFXs1RU"
+        "Ref": "GraphqlLambdaVersionKnS1RPNphi4Y2F0ke5fBdGnbd6UGDu20xeySrJitEg8"
       }
     },
     "ServiceEndpoint": {
