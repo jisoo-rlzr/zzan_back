@@ -20,6 +20,6 @@ var models = [
 const Prisma = makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `http://zzan-LoadB-158O00A1R1WZH-761696145.us-east-2.elb.amazonaws.com`
+  endpoint: `http://zzan-loadb-uw7650x3qnh9-1923886869.us-east-2.elb.amazonaws.com`
 });
 exports.prisma = new Prisma();
