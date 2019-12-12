@@ -50,3 +50,8 @@ type Place {
   dislikes: Int!
   creator: User
 }
+
+schema {
+	query: Query
+	mutation: Mutation
+}
