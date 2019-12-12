@@ -21,10 +21,10 @@ functions:
     handler: src/index.graphqlHandler
     events:
     - http:
-        path: /
+        path: src/index
         method: post
         cors: true
     - http:
-        path: /
+        path: src/index
         method: get
         cors: true
